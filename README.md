@@ -4,6 +4,7 @@
 - h2 연동
 - jpa 연동
 - 테스트 REST API 추가
+- 테스트용 기초 sql init 추가
 
 # TODOLIST2
 - Rest API를 GraphQL로 변경
