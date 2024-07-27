@@ -2,9 +2,7 @@ package org.hanumoka.sample.board.infra.jpa;
 
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.hanumoka.sample.member.infra.jpa.MemberEntity;
 import org.hibernate.annotations.Comment;
@@ -13,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Table(name = "board")
@@ -24,9 +24,11 @@ public class BoardEntity {
     @Column(name = "id")
     private Long id;
 
+    @Setter
     @Column(name = "title")
     private String title;
 
+    @Setter
     @Column(name = "content")
     private String content;
 
