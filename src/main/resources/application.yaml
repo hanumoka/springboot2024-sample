@@ -30,6 +30,11 @@ spring:
       mode: always
       data-locations: classpath:db/data.sql
 
+# 기본접속 localhost:8080/graphiql
+  graphql:
+    graphiql:
+      enabled: true
+
 logging:
   level:
     org.springframework.jdbc.datasource.init: DEBUG
