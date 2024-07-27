@@ -32,7 +32,7 @@ dependencies {
     //graphql
     implementation 'org.springframework.boot:spring-boot-starter-graphql'
     testImplementation 'org.springframework.graphql:spring-graphql-test'
-    testImplementation 'org.springframework:spring-webflux'699
+    testImplementation 'org.springframework:spring-webflux'
 
     //DB
     runtimeOnly 'com.h2database:h2'
