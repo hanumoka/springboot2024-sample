@@ -1,24 +1,14 @@
 package org.hanumoka.sample.board.controller;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 import org.hanumoka.sample.member.controller.MemberDTO;
 
-import java.util.List;
-
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 @AllArgsConstructor
 @Data
-public class BoardDTO {
-
+public class CommentDTO {
     private long id;
-
-    private String title;
-
     private String content;
-
     private MemberDTO author;
-
-    private List<CommentDTO> commentDTOList;
 }

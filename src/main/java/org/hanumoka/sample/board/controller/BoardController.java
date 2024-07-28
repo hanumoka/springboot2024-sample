@@ -30,15 +30,7 @@ public class BoardController {
     //단건 조회
     @GetMapping("/{boardId}")
     public ResponseEntity<BoardDTO> getBoard(@PathVariable Long boardId) {
-        BoardEntity board = boardService.getBoard(boardId);
-
-        BoardDTO boardDTO = BoardDTO.builder()
-                .id(board.getId())
-                .title(board.getTitle())
-                .content(board.getContent())
-                .authorId(board.getAuthor().getId())
-                .build();
-
+        BoardDTO boardDTO = boardService.getBoard(boardId);
         return ResponseEntity.ok(boardDTO);
     }
     
@@ -59,16 +51,8 @@ public class BoardController {
     //페이징 조회
     @GetMapping("/get-all-board")
     public ResponseEntity<Page<BoardDTO>> getAllBoard(@PageableDefault(size = 10, sort = "id") Pageable pageable) {
-        Page<BoardEntity> boardEntityList =  boardService.getBoardAll(pageable);
-
-        Page<BoardDTO> result = boardEntityList.map(board -> BoardDTO.builder()
-                .id(board.getId())
-                .title(board.getTitle())
-                .content(board.getContent())
-                .authorId(board.getAuthor().getId())
-                .build());
-
-        return ResponseEntity.ok(result);
+        Page<BoardDTO> boardEntityList =  boardService.getBoardAll(pageable);
+        return ResponseEntity.ok(boardEntityList);
     }
 
 }

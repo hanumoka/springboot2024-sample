@@ -3,10 +3,13 @@ package org.hanumoka.sample.board.service;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hanumoka.sample.board.controller.BoardDTO;
+import org.hanumoka.sample.board.controller.CommentDTO;
 import org.hanumoka.sample.board.infra.jpa.BoardEntity;
 import org.hanumoka.sample.board.infra.jpa.BoardRepo;
 import org.hanumoka.sample.board.infra.jpa.CommentEntity;
 import org.hanumoka.sample.board.infra.jpa.CommentRepo;
+import org.hanumoka.sample.member.controller.MemberDTO;
 import org.hanumoka.sample.member.infra.jpa.MemberEntity;
 import org.hanumoka.sample.member.infra.jpa.MemberRepo;
 import org.springframework.data.domain.Page;
@@ -61,17 +64,75 @@ public class BoardService {
         return boardEntity.getId();
     }
 
-    public Page<BoardEntity> getBoardAll(Pageable pageable) {
-        return boardRepo.findAll(pageable);
+    public Page<BoardDTO> getBoardAll(Pageable pageable) {
+        Page<BoardEntity> boardEntityList =  boardRepo.findAll(pageable);
+
+        return boardEntityList.map(boardEntity -> {
+            MemberEntity author = boardEntity.getAuthor();
+            MemberDTO authorDTO = MemberDTO.builder()
+                    .id(author.getId())
+                    .name(author.getName())
+                    .build();
+
+            List<CommentEntity> commentEntityList = commentRepo.findAllByBoardId(boardEntity.getId());
+            List<CommentDTO> commentDTOList = commentEntityList.stream()
+                    .map(commentEntity -> CommentDTO.builder()
+                            .id(commentEntity.getId())
+                            .content(commentEntity.getContent())
+                            .author(MemberDTO.builder()
+                                    .id(commentEntity.getAuthor().getId())
+                                    .name(commentEntity.getAuthor().getName())
+                                    .build())
+                            .build())
+                    .toList();
+
+            return BoardDTO.builder()
+                    .id(boardEntity.getId())
+                    .title(boardEntity.getTitle())
+                    .content(boardEntity.getContent())
+                    .author(authorDTO)
+                    .commentDTOList(commentDTOList)
+                    .build();
+        });
     }
 
     public List<BoardEntity> getBoardsByAuthorId(Long authorId) {
         return boardRepo.findAllByAuthorId(authorId);
     }
 
-    public BoardEntity getBoard(Long boardId) {
-        return boardRepo.findById(boardId)
+    public BoardDTO getBoard(Long boardId) {
+        BoardEntity boardEntity = boardRepo.findById(boardId)
                 .orElse(null);
+
+        if(boardEntity == null) {
+            return null;
+        }
+
+        MemberEntity author = boardEntity.getAuthor();
+        MemberDTO authorDTO = MemberDTO.builder()
+                .id(author.getId())
+                .name(author.getName())
+                .build();
+
+        List<CommentEntity> commentEntityList = commentRepo.findAllByBoardId(boardId);
+        List<CommentDTO> commentDTOList = commentEntityList.stream()
+                .map(commentEntity -> CommentDTO.builder()
+                        .id(commentEntity.getId())
+                        .content(commentEntity.getContent())
+                        .author(MemberDTO.builder()
+                                .id(commentEntity.getAuthor().getId())
+                                .name(commentEntity.getAuthor().getName())
+                                .build())
+                        .build())
+                .toList();
+
+        return BoardDTO.builder()
+                .id(boardEntity.getId())
+                .title(boardEntity.getTitle())
+                .content(boardEntity.getContent())
+                .author(authorDTO)
+                .commentDTOList(commentDTOList)
+                .build();
     }
 
     public CommentEntity getComment(Long commentId) {
