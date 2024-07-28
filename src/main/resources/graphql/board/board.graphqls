@@ -1,0 +1,6 @@
+type Board {
+    id: ID
+    title: String
+    content: String
+    author: Member
+}

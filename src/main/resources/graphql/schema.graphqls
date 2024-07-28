@@ -1,6 +1,17 @@
+## Import all other schema files
+#scalar JSON
+#scalar Date
+
 type Query {
+    # Import queries from other files
     books: [Book]
     bookById(id: Int) : Book
+}
+
+type Author {
+    id: ID
+    name: String
+    #    books: [Book]
 }
 
 type Book {
@@ -10,8 +21,5 @@ type Book {
     author: Author
 }
 
-type Author {
-    id: ID
-    name: String
-#    books: [Book]
-}
+
+

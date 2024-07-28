@@ -2,15 +2,16 @@ package org.hanumoka.sample.member.infra.jpa;
 
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.hanumoka.sample.board.infra.jpa.BoardEntity;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Builder
+@AllArgsConstructor
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -25,6 +26,7 @@ public class MemberEntity {
     @Column(name = "username")
     private String username;
 
+    @Setter
     @Column(name = "name")
     private String name;
 

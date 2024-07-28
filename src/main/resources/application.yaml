@@ -34,6 +34,11 @@ spring:
   graphql:
     graphiql:
       enabled: true
+    schema:
+      printer:
+        enabled: true   # 수항한 쿼리를 콘솔에 출력
+      locations: classpath:graphql/**/
+      file-extensions: .graphqls, .gqls
 
 logging:
   level:
