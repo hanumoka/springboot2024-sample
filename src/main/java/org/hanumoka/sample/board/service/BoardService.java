@@ -9,6 +9,8 @@ import org.hanumoka.sample.board.infra.jpa.CommentEntity;
 import org.hanumoka.sample.board.infra.jpa.CommentRepo;
 import org.hanumoka.sample.member.infra.jpa.MemberEntity;
 import org.hanumoka.sample.member.infra.jpa.MemberRepo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,8 +41,8 @@ public class BoardService {
     }
 
     @Transactional
-    public Long updateBoard(Long authorId, Long boardId, String title, String content) {
-        BoardEntity boardEntity = boardRepo.findByIdAndAuthorId(boardId, authorId)
+    public Long updateBoard(Long boardId, String title, String content) {
+        BoardEntity boardEntity = boardRepo.findById(boardId)
                 .orElseThrow(() -> new EntityNotFoundException("Board not found"));
 
         boardEntity.setTitle(title);
@@ -50,8 +52,8 @@ public class BoardService {
     }
 
     @Transactional
-    public Long deleteBoard(Long authorId, Long boardId) {
-        BoardEntity boardEntity = boardRepo.findByIdAndAuthorId(boardId, authorId)
+    public Long deleteBoard(Long boardId) {
+        BoardEntity boardEntity = boardRepo.findById(boardId)
                 .orElseThrow(() -> new EntityNotFoundException("Board not found"));
 
         boardRepo.delete(boardEntity);
@@ -59,8 +61,8 @@ public class BoardService {
         return boardEntity.getId();
     }
 
-    public List<BoardEntity> getBoardAll() {
-        return boardRepo.findAll();
+    public Page<BoardEntity> getBoardAll(Pageable pageable) {
+        return boardRepo.findAll(pageable);
     }
 
     public List<BoardEntity> getBoardsByAuthorId(Long authorId) {
