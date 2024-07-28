@@ -2,15 +2,12 @@ package org.hanumoka.sample.board.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hanumoka.sample.board.infra.jpa.BoardEntity;
 import org.hanumoka.sample.board.service.BoardService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -51,7 +48,7 @@ public class BoardController {
     //페이징 조회
     @GetMapping("/get-all-board")
     public ResponseEntity<Page<BoardDTO>> getAllBoard(@PageableDefault(size = 10, sort = "id") Pageable pageable) {
-        Page<BoardDTO> boardEntityList =  boardService.getBoardAll(pageable);
+        Page<BoardDTO> boardEntityList =  boardService.getBoardPage(pageable);
         return ResponseEntity.ok(boardEntityList);
     }
 

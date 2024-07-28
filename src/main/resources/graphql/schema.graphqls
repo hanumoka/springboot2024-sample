@@ -6,6 +6,7 @@ type Query {
     # Import queries from other files
     books: [Book]
     bookById(id: Int) : Book
+#    boards: [Board]
 }
 
 type Author {

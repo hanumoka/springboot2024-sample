@@ -64,7 +64,39 @@ public class BoardService {
         return boardEntity.getId();
     }
 
-    public Page<BoardDTO> getBoardAll(Pageable pageable) {
+    public List<BoardDTO> getAllBoard(){
+        return boardRepo.findAll().stream()
+                .map(boardEntity -> {
+                    MemberEntity author = boardEntity.getAuthor();
+                    MemberDTO authorDTO = MemberDTO.builder()
+                            .id(author.getId())
+                            .name(author.getName())
+                            .build();
+
+                    List<CommentEntity> commentEntityList = commentRepo.findAllByBoardId(boardEntity.getId());
+                    List<CommentDTO> commentDTOList = commentEntityList.stream()
+                            .map(commentEntity -> CommentDTO.builder()
+                                    .id(commentEntity.getId())
+                                    .content(commentEntity.getContent())
+                                    .author(MemberDTO.builder()
+                                            .id(commentEntity.getAuthor().getId())
+                                            .name(commentEntity.getAuthor().getName())
+                                            .build())
+                                    .build())
+                            .toList();
+
+                    return BoardDTO.builder()
+                            .id(boardEntity.getId())
+                            .title(boardEntity.getTitle())
+                            .content(boardEntity.getContent())
+                            .author(authorDTO)
+                            .commentDTOList(commentDTOList)
+                            .build();
+                })
+                .toList();
+    }
+
+    public Page<BoardDTO> getBoardPage(Pageable pageable) {
         Page<BoardEntity> boardEntityList =  boardRepo.findAll(pageable);
 
         return boardEntityList.map(boardEntity -> {
