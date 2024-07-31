@@ -1,19 +1,19 @@
 package org.hanumoka.sample.member.service.port;
 
-import org.hanumoka.sample.member.infra.MemberEntity;
+import org.hanumoka.sample.member.domain.Member;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.Optional;
 
 public interface MemberRepo {
-    Optional<MemberEntity> findByUsername(String username);
+    Optional<Member> findByUsername(String username);
 
-    MemberEntity save(MemberEntity member);
+    Member save(Member member);
 
-    Optional<MemberEntity> findById(Long memberId);
+    Optional<Member> findById(Long memberId);
 
-    Page<MemberEntity> findAll(Pageable pageable);
+    Page<Member> findAll(Pageable pageable);
 
-    void delete(MemberEntity member);
+    void delete(Member member);
 }

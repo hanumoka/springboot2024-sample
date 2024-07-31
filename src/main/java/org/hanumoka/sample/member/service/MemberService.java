@@ -2,8 +2,9 @@ package org.hanumoka.sample.member.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hanumoka.sample.member.infra.MemberEntity;
-import org.hanumoka.sample.member.infra.MemberJpaRepo;
+import org.hanumoka.sample.member.domain.Member;
+import org.hanumoka.sample.member.domain.MemberCreate;
+import org.hanumoka.sample.member.domain.MemberUpdate;
 import org.hanumoka.sample.member.service.port.MemberRepo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,46 +12,45 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
-@Transactional
 @RequiredArgsConstructor
 @Service
 public class MemberService {
 
     private final MemberRepo memberRepo;
 
+    @Transactional
+    public Long createMember(MemberCreate memberCreate) {
 
-    public Long createMember(String username, String name) {
-
-        memberRepo.findByUsername(username).ifPresent(member -> {
+        memberRepo.findByUsername(memberCreate.getUsername()).ifPresent(member -> {
             throw new IllegalArgumentException("이미 존재하는 회원입니다.");
         });
 
-        MemberEntity member = MemberEntity.builder()
-                .username(username)
-                .name(name)
-                .build();
+        Member member = Member.from(memberCreate);
 
-        MemberEntity savedMember = memberRepo.save(member);
+        Member savedMember = memberRepo.save(member);
         return savedMember.getId();
     }
 
-    public MemberEntity getMember(Long memberId) {
+    public Member getMember(Long memberId) {
         return memberRepo.findById(memberId).orElse(null);
     }
 
-    public long updateMember(Long memberId, String name) {
-        MemberEntity member = memberRepo.findById(memberId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
-        member.setName(name);
+    @Transactional
+    public long updateMember(MemberUpdate memberUpdate) {
+        Member member = memberRepo.findById(memberUpdate.getId()).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+        member.update(memberUpdate);
+        memberRepo.save(member);
         return member.getId();
     }
 
+    @Transactional
     public long deleteMember(Long memberId) {
-        MemberEntity member = memberRepo.findById(memberId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+        Member member = memberRepo.findById(memberId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
         memberRepo.delete(member);
         return member.getId();
     }
 
-    public Page<MemberEntity> getMemberAll(Pageable pageable) {
+    public Page<Member> getMemberAll(Pageable pageable) {
         return memberRepo.findAll(pageable);
     }
 }

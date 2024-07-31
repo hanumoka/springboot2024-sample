@@ -1,11 +1,5 @@
 # 2024 springboot 예제 프로젝트
 
-# TODOLIST2
-- Rest API를 GraphQL로 변경
-
-
-# TODOLIST3
-- Rest API를 GRPC로 변경
-
-# TODOLIST4
-- WebSocket 예제 추가(채팅)
+### DDD 궁금증
+- 단일 엔티티인 경우 상관 없지만, 엔티티의 연관관계가 있는경우 어떻게 설계 해야 하지????
+- DDD에서는 Jpa의 더티체크는 포기하는 것인가?

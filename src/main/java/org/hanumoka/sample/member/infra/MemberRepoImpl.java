@@ -1,6 +1,7 @@
 package org.hanumoka.sample.member.infra;
 
 import lombok.RequiredArgsConstructor;
+import org.hanumoka.sample.member.domain.Member;
 import org.hanumoka.sample.member.service.port.MemberRepo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,27 +15,27 @@ public class MemberRepoImpl implements MemberRepo {
     private final MemberJpaRepo memberJpaRepo;
 
     @Override
-    public Optional<MemberEntity> findByUsername(String username) {
-        return memberJpaRepo.findByUsername(username);
+    public Optional<Member> findByUsername(String username) {
+        return memberJpaRepo.findByUsername(username).map(MemberEntity::toDomain);
     }
 
     @Override
-    public MemberEntity save(MemberEntity member) {
-        return memberJpaRepo.save(member);
+    public Member save(Member member) {
+        return memberJpaRepo.save(MemberEntity.fromDomain(member)).toDomain();
     }
 
     @Override
-    public Optional<MemberEntity> findById(Long memberId) {
-        return memberJpaRepo.findById(memberId);
+    public Optional<Member> findById(Long memberId) {
+        return memberJpaRepo.findById(memberId).map(MemberEntity::toDomain);
     }
 
     @Override
-    public Page<MemberEntity> findAll(Pageable pageable) {
-        return memberJpaRepo.findAll(pageable);
+    public Page<Member> findAll(Pageable pageable) {
+        return memberJpaRepo.findAll(pageable).map(MemberEntity::toDomain);
     }
 
     @Override
-    public void delete(MemberEntity member) {
-        memberJpaRepo.delete(member);
+    public void delete(Member member) {
+        memberJpaRepo.delete(MemberEntity.fromDomain(member));
     }
 }

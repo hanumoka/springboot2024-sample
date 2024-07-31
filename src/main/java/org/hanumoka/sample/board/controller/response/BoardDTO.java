@@ -3,7 +3,7 @@ package org.hanumoka.sample.board.controller.response;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import org.hanumoka.sample.member.controller.response.MemberDTO;
+import org.hanumoka.sample.member.controller.response.MemberResponseDto;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class BoardDTO {
 
     private String content;
 
-    private MemberDTO author;
+    private MemberResponseDto author;
 
     private List<CommentDTO> commentDTOList;
 }

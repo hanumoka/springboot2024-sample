@@ -3,9 +3,11 @@ package org.hanumoka.sample.member.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hanumoka.sample.member.controller.request.CreateMemberRequestDto;
-import org.hanumoka.sample.member.controller.response.MemberDTO;
+import org.hanumoka.sample.member.controller.response.MemberResponseDto;
 import org.hanumoka.sample.member.controller.request.UpdateMemberRequestDto;
-import org.hanumoka.sample.member.infra.MemberEntity;
+import org.hanumoka.sample.member.domain.Member;
+import org.hanumoka.sample.member.domain.MemberCreate;
+import org.hanumoka.sample.member.domain.MemberUpdate;
 import org.hanumoka.sample.member.service.MemberService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,28 +25,33 @@ public class MemberController {
     //멤버 생성
     @PostMapping
     public ResponseEntity<Long> createMember(@RequestBody CreateMemberRequestDto request) {
-        Long memberId = memberService.createMember(request.getUsername(), request.getName());
+        MemberCreate memberCreate = MemberCreate.builder()
+                .username(request.getUsername())
+                .name(request.getName())
+                .build();
+        Long memberId = memberService.createMember(memberCreate);
         return ResponseEntity.ok(memberId);
     }
     
     //멤버 단일 조회
     @GetMapping("/{memberId}")
-    public ResponseEntity<MemberDTO> getMember(@PathVariable Long memberId) {
-        MemberEntity member = memberService.getMember(memberId);
+    public ResponseEntity<MemberResponseDto> getMember(@PathVariable Long memberId) {
+        Member member = memberService.getMember(memberId);
 
-        MemberDTO memberDTO = MemberDTO.builder()
-                .id(member.getId())
-                .username(member.getUsername())
-                .name(member.getName())
-                .build();
+        MemberResponseDto memberResponseDto = MemberResponseDto.from(member);
 
-        return ResponseEntity.ok(memberDTO);
+        return ResponseEntity.ok(memberResponseDto);
     }
     
     //멤버 수정
     @PostMapping("/{memberId}")
     public ResponseEntity<Long> updateMember(@PathVariable Long memberId, @RequestBody UpdateMemberRequestDto request) {
-        long updatedMemberId = memberService.updateMember(memberId, request.getName());
+        MemberUpdate memberUpdate = MemberUpdate.builder()
+                .id(memberId)
+//                .username(request.getUsername())  // TODO: update 시 받지 않는 데이터는?
+                .name(request.getName())
+                .build();
+        long updatedMemberId = memberService.updateMember(memberUpdate);
         return ResponseEntity.ok(updatedMemberId);
     }
     
@@ -57,15 +64,11 @@ public class MemberController {
     
     //멤버 전체 조회 + 페이징
     @GetMapping("/get-all-member")
-    public ResponseEntity<Page<MemberDTO>> getAllMember(@PageableDefault(size = 10, sort = "id") Pageable pageable) {
+    public ResponseEntity<Page<MemberResponseDto>> getAllMember(@PageableDefault(size = 10, sort = "id") Pageable pageable) {
 
-        Page<MemberEntity> memberEntityPage = memberService.getMemberAll(pageable);
+        Page<Member> memberEntityPage = memberService.getMemberAll(pageable);
 
-        Page<MemberDTO> result = memberEntityPage.map(member -> MemberDTO.builder()
-                .id(member.getId())
-                .username(member.getUsername())
-                .name(member.getName())
-                .build());
+        Page<MemberResponseDto> result = memberEntityPage.map(member -> MemberResponseDto.from(member));
 
         return ResponseEntity.ok(result);
     }

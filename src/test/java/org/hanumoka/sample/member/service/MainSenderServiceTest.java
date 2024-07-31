@@ -20,8 +20,6 @@ public class MainSenderServiceTest {
         assertThat(fakeMailSender.email).isEqualTo("test@test.com");
         assertThat(fakeMailSender.title).isEqualTo("이메일제목");
         assertThat(fakeMailSender.content).isEqualTo("test11111111");
-
-
     }
 
 }

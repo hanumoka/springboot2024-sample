@@ -1,7 +1,7 @@
 package org.hanumoka.sample.board.controller.response;
 
 import lombok.*;
-import org.hanumoka.sample.member.controller.response.MemberDTO;
+import org.hanumoka.sample.member.controller.response.MemberResponseDto;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
@@ -10,5 +10,5 @@ import org.hanumoka.sample.member.controller.response.MemberDTO;
 public class CommentDTO {
     private long id;
     private String content;
-    private MemberDTO author;
+    private MemberResponseDto author;
 }

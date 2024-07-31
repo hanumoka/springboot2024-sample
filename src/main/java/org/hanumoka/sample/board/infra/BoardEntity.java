@@ -40,5 +40,5 @@ public class BoardEntity {
 
     @Comment("댓글")
     @OneToMany(mappedBy = "board", fetch = FetchType.LAZY)
-    private List<CommentEntity> comments = new ArrayList<>();
+    private List<CommentEntity> comments;
 }
