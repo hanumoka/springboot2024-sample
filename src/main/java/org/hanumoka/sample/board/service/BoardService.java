@@ -6,12 +6,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.hanumoka.sample.board.controller.response.BoardDTO;
 import org.hanumoka.sample.board.controller.response.CommentDTO;
 import org.hanumoka.sample.board.infra.BoardEntity;
-import org.hanumoka.sample.board.infra.BoardRepo;
-import org.hanumoka.sample.board.infra.CommentEntity;
-import org.hanumoka.sample.board.infra.CommentRepo;
+import org.hanumoka.sample.board.infra.BoardJpaRepo;
+import org.hanumoka.sample.comment.infra.CommentEntity;
+import org.hanumoka.sample.comment.infra.CommentJpaRepo;
 import org.hanumoka.sample.member.controller.response.MemberDTO;
 import org.hanumoka.sample.member.infra.MemberEntity;
-import org.hanumoka.sample.member.infra.MemberRepo;
+import org.hanumoka.sample.member.infra.MemberJpaRepo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -23,13 +23,13 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class BoardService {
-    private final BoardRepo boardRepo;
-    private final CommentRepo commentRepo;
-    private final MemberRepo memberRepo;
+    private final BoardJpaRepo boardJpaRepo;
+    private final CommentJpaRepo commentJpaRepo;
+    private final MemberJpaRepo memberJpaRepo;
 
     @Transactional
     public Long createBoard(Long authorId, String title, String content) {
-        MemberEntity memberEntity = memberRepo.findById(authorId)
+        MemberEntity memberEntity = memberJpaRepo.findById(authorId)
                 .orElseThrow(() -> new EntityNotFoundException("Member not found"));
 
         BoardEntity boardEntity = BoardEntity.builder()
@@ -38,14 +38,14 @@ public class BoardService {
                 .content(content)
                 .build();
 
-        boardRepo.save(boardEntity);
+        boardJpaRepo.save(boardEntity);
 
         return boardEntity.getId();
     }
 
     @Transactional
     public Long updateBoard(Long boardId, String title, String content) {
-        BoardEntity boardEntity = boardRepo.findById(boardId)
+        BoardEntity boardEntity = boardJpaRepo.findById(boardId)
                 .orElseThrow(() -> new EntityNotFoundException("Board not found"));
 
         boardEntity.setTitle(title);
@@ -56,16 +56,16 @@ public class BoardService {
 
     @Transactional
     public Long deleteBoard(Long boardId) {
-        BoardEntity boardEntity = boardRepo.findById(boardId)
+        BoardEntity boardEntity = boardJpaRepo.findById(boardId)
                 .orElseThrow(() -> new EntityNotFoundException("Board not found"));
 
-        boardRepo.delete(boardEntity);
+        boardJpaRepo.delete(boardEntity);
 
         return boardEntity.getId();
     }
 
     public List<BoardDTO> getAllBoard(){
-        return boardRepo.findAll().stream()
+        return boardJpaRepo.findAll().stream()
                 .map(boardEntity -> {
                     MemberEntity author = boardEntity.getAuthor();
                     MemberDTO authorDTO = MemberDTO.builder()
@@ -73,7 +73,7 @@ public class BoardService {
                             .name(author.getName())
                             .build();
 
-                    List<CommentEntity> commentEntityList = commentRepo.findAllByBoardId(boardEntity.getId());
+                    List<CommentEntity> commentEntityList = commentJpaRepo.findAllByBoardId(boardEntity.getId());
                     List<CommentDTO> commentDTOList = commentEntityList.stream()
                             .map(commentEntity -> CommentDTO.builder()
                                     .id(commentEntity.getId())
@@ -97,7 +97,7 @@ public class BoardService {
     }
 
     public Page<BoardDTO> getBoardPage(Pageable pageable) {
-        Page<BoardEntity> boardEntityList =  boardRepo.findAll(pageable);
+        Page<BoardEntity> boardEntityList =  boardJpaRepo.findAll(pageable);
 
         return boardEntityList.map(boardEntity -> {
             MemberEntity author = boardEntity.getAuthor();
@@ -106,7 +106,7 @@ public class BoardService {
                     .name(author.getName())
                     .build();
 
-            List<CommentEntity> commentEntityList = commentRepo.findAllByBoardId(boardEntity.getId());
+            List<CommentEntity> commentEntityList = commentJpaRepo.findAllByBoardId(boardEntity.getId());
             List<CommentDTO> commentDTOList = commentEntityList.stream()
                     .map(commentEntity -> CommentDTO.builder()
                             .id(commentEntity.getId())
@@ -129,11 +129,11 @@ public class BoardService {
     }
 
     public List<BoardEntity> getBoardsByAuthorId(Long authorId) {
-        return boardRepo.findAllByAuthorId(authorId);
+        return boardJpaRepo.findAllByAuthorId(authorId);
     }
 
     public BoardDTO getBoard(Long boardId) {
-        BoardEntity boardEntity = boardRepo.findById(boardId)
+        BoardEntity boardEntity = boardJpaRepo.findById(boardId)
                 .orElse(null);
 
         if(boardEntity == null) {
@@ -146,7 +146,7 @@ public class BoardService {
                 .name(author.getName())
                 .build();
 
-        List<CommentEntity> commentEntityList = commentRepo.findAllByBoardId(boardId);
+        List<CommentEntity> commentEntityList = commentJpaRepo.findAllByBoardId(boardId);
         List<CommentDTO> commentDTOList = commentEntityList.stream()
                 .map(commentEntity -> CommentDTO.builder()
                         .id(commentEntity.getId())
@@ -168,11 +168,11 @@ public class BoardService {
     }
 
     public CommentEntity getComment(Long commentId) {
-        return commentRepo.findById(commentId).orElse(null);
+        return commentJpaRepo.findById(commentId).orElse(null);
     }
 
     public List<CommentEntity> getCommentByBoardId(Long boardId) {
-        return commentRepo.findAllByBoardId(boardId);
+        return commentJpaRepo.findAllByBoardId(boardId);
     }
 
 }

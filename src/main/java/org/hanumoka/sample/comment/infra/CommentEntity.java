@@ -1,10 +1,11 @@
-package org.hanumoka.sample.board.infra;
+package org.hanumoka.sample.comment.infra;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hanumoka.sample.board.infra.BoardEntity;
 import org.hanumoka.sample.member.infra.MemberEntity;
 import org.hibernate.annotations.Comment;
 

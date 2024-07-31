@@ -4,6 +4,7 @@ package org.hanumoka.sample.board.infra;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
+import org.hanumoka.sample.comment.infra.CommentEntity;
 import org.hanumoka.sample.member.infra.MemberEntity;
 import org.hibernate.annotations.Comment;
 
