@@ -1,7 +1,7 @@
 package org.hanumoka.sample.board.resolver;
 
 import lombok.RequiredArgsConstructor;
-import org.hanumoka.sample.board.controller.BoardDTO;
+import org.hanumoka.sample.board.controller.response.BoardDTO;
 import org.hanumoka.sample.board.service.BoardService;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;

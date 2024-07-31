@@ -1,4 +1,4 @@
-package org.hanumoka.sample.member.controller;
+package org.hanumoka.sample.member.controller.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,7 +7,8 @@ import lombok.Data;
 @Builder
 @AllArgsConstructor
 @Data
-public class CreateMemberRequestDto {
+public class MemberDTO {
+    private long id;
     private String username;
     private String name;
 }

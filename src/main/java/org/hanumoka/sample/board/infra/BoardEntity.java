@@ -1,10 +1,10 @@
-package org.hanumoka.sample.board.infra.jpa;
+package org.hanumoka.sample.board.infra;
 
 
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
-import org.hanumoka.sample.member.infra.jpa.MemberEntity;
+import org.hanumoka.sample.member.infra.MemberEntity;
 import org.hibernate.annotations.Comment;
 
 import java.util.ArrayList;

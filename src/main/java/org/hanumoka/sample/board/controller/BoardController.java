@@ -2,6 +2,9 @@ package org.hanumoka.sample.board.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hanumoka.sample.board.controller.response.BoardDTO;
+import org.hanumoka.sample.board.controller.request.CreateBoardRequestDto;
+import org.hanumoka.sample.board.controller.request.UpdateBoardRequestDto;
 import org.hanumoka.sample.board.service.BoardService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

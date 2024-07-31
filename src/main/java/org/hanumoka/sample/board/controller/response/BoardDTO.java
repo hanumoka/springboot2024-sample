@@ -1,9 +1,9 @@
-package org.hanumoka.sample.board.controller;
+package org.hanumoka.sample.board.controller.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import org.hanumoka.sample.member.controller.MemberDTO;
+import org.hanumoka.sample.member.controller.response.MemberDTO;
 
 import java.util.List;
 

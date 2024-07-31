@@ -1,4 +1,4 @@
-package org.hanumoka.sample.member.infra.jpa;
+package org.hanumoka.sample.member.infra;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

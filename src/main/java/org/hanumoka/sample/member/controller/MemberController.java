@@ -2,15 +2,16 @@ package org.hanumoka.sample.member.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hanumoka.sample.member.infra.jpa.MemberEntity;
+import org.hanumoka.sample.member.controller.request.CreateMemberRequestDto;
+import org.hanumoka.sample.member.controller.response.MemberDTO;
+import org.hanumoka.sample.member.controller.request.UpdateMemberRequestDto;
+import org.hanumoka.sample.member.infra.MemberEntity;
 import org.hanumoka.sample.member.service.MemberService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor

@@ -1,11 +1,10 @@
-package org.hanumoka.sample.member.infra.jpa;
+package org.hanumoka.sample.member.infra;
 
 
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
-import org.hanumoka.sample.board.infra.jpa.BoardEntity;
-import org.springframework.stereotype.Service;
+import org.hanumoka.sample.board.infra.BoardEntity;
 
 import java.util.ArrayList;
 import java.util.List;

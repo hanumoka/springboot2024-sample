@@ -1,4 +1,4 @@
-package org.hanumoka.sample.member.controller;
+package org.hanumoka.sample.member.controller.request;
 
 import lombok.*;
 

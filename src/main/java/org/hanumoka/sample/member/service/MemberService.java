@@ -2,14 +2,12 @@ package org.hanumoka.sample.member.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hanumoka.sample.member.infra.jpa.MemberEntity;
-import org.hanumoka.sample.member.infra.jpa.MemberRepo;
+import org.hanumoka.sample.member.infra.MemberEntity;
+import org.hanumoka.sample.member.infra.MemberRepo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Slf4j
 @Transactional
