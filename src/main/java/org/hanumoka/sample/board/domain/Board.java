@@ -1,10 +1,9 @@
 package org.hanumoka.sample.board.domain;
 
 import lombok.Builder;
-import org.hanumoka.sample.member.infra.MemberEntity;
+import org.hanumoka.sample.member.infrastructure.jpa.MemberEntity;
 import org.hibernate.annotations.Comment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Board {

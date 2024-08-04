@@ -1,7 +1,7 @@
 package org.hanumoka.sample.board.infra;
 
 import lombok.RequiredArgsConstructor;
-import org.hanumoka.sample.comment.service.port.CommentRepo;
+import org.hanumoka.sample.board.service.port.CommentRepo;
 import org.springframework.stereotype.Repository;
 
 @RequiredArgsConstructor
