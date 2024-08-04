@@ -1,4 +1,4 @@
-package org.hanumoka.sample.member.controller.response;
+package org.hanumoka.sample.member.presentation.rest.response;
 
 import lombok.Builder;
 import lombok.Getter;

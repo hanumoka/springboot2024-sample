@@ -1,7 +1,7 @@
 package org.hanumoka.sample.board.controller.response;
 
 import lombok.*;
-import org.hanumoka.sample.member.controller.response.MemberResponseDto;
+import org.hanumoka.sample.member.presentation.rest.response.MemberResponseDto;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder

@@ -1,7 +1,6 @@
-package org.hanumoka.sample.comment.domain;
+package org.hanumoka.sample.board.domain;
 
 import lombok.Builder;
-import org.hanumoka.sample.board.domain.Board;
 import org.hanumoka.sample.member.domain.Member;
 
 public class Comment {

@@ -1,4 +1,4 @@
-package org.hanumoka.sample.comment.infra;
+package org.hanumoka.sample.board.infra;
 
 import lombok.RequiredArgsConstructor;
 import org.hanumoka.sample.comment.service.port.CommentRepo;

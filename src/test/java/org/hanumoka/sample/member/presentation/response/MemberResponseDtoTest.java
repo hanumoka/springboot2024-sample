@@ -1,6 +1,7 @@
-package org.hanumoka.sample.member.controller.response;
+package org.hanumoka.sample.member.presentation.response;
 
 import org.hanumoka.sample.member.domain.Member;
+import org.hanumoka.sample.member.presentation.rest.response.MemberResponseDto;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

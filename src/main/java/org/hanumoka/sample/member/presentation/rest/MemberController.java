@@ -1,10 +1,10 @@
-package org.hanumoka.sample.member.controller;
+package org.hanumoka.sample.member.presentation.rest;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hanumoka.sample.member.controller.request.CreateMemberRequestDto;
-import org.hanumoka.sample.member.controller.response.MemberResponseDto;
-import org.hanumoka.sample.member.controller.request.UpdateMemberRequestDto;
+import org.hanumoka.sample.member.presentation.rest.request.CreateMemberRequestDto;
+import org.hanumoka.sample.member.presentation.rest.response.MemberResponseDto;
+import org.hanumoka.sample.member.presentation.rest.request.UpdateMemberRequestDto;
 import org.hanumoka.sample.member.domain.Member;
 import org.hanumoka.sample.member.domain.MemberCreate;
 import org.hanumoka.sample.member.domain.MemberUpdate;
