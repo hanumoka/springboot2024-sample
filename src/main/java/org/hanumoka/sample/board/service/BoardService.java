@@ -9,9 +9,9 @@ import org.hanumoka.sample.board.infra.BoardEntity;
 import org.hanumoka.sample.board.infra.BoardJpaRepo;
 import org.hanumoka.sample.board.infra.CommentEntity;
 import org.hanumoka.sample.board.infra.CommentJpaRepo;
-import org.hanumoka.sample.member.presentation.rest.response.MemberResponseDto;
-import org.hanumoka.sample.member.infrastructure.jpa.MemberEntity;
-import org.hanumoka.sample.member.infrastructure.jpa.MemberJpaRepo;
+import org.hanumoka.sample.account.presentation.rest.response.AccountResponseDto;
+import org.hanumoka.sample.account.infrastructure.jpa.AccountEntity;
+import org.hanumoka.sample.account.infrastructure.jpa.AccountJpaRepo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -25,15 +25,15 @@ import java.util.List;
 public class BoardService {
     private final BoardJpaRepo boardJpaRepo;
     private final CommentJpaRepo commentJpaRepo;
-    private final MemberJpaRepo memberJpaRepo;
+    private final AccountJpaRepo accountJpaRepo;
 
     @Transactional
     public Long createBoard(Long authorId, String title, String content) {
-        MemberEntity memberEntity = memberJpaRepo.findById(authorId)
+        AccountEntity accountEntity = accountJpaRepo.findById(authorId)
                 .orElseThrow(() -> new EntityNotFoundException("Member not found"));
 
         BoardEntity boardEntity = BoardEntity.builder()
-                .author(memberEntity)
+                .author(accountEntity)
                 .title(title)
                 .content(content)
                 .build();
@@ -67,8 +67,8 @@ public class BoardService {
     public List<BoardDTO> getAllBoard(){
         return boardJpaRepo.findAll().stream()
                 .map(boardEntity -> {
-                    MemberEntity author = boardEntity.getAuthor();
-                    MemberResponseDto authorDTO = MemberResponseDto.builder()
+                    AccountEntity author = boardEntity.getAuthor();
+                    AccountResponseDto authorDTO = AccountResponseDto.builder()
                             .id(author.getId())
                             .name(author.getName())
                             .build();
@@ -78,7 +78,7 @@ public class BoardService {
                             .map(commentEntity -> CommentDTO.builder()
                                     .id(commentEntity.getId())
                                     .content(commentEntity.getContent())
-                                    .author(MemberResponseDto.builder()
+                                    .author(AccountResponseDto.builder()
                                             .id(commentEntity.getAuthor().getId())
                                             .name(commentEntity.getAuthor().getName())
                                             .build())
@@ -100,8 +100,8 @@ public class BoardService {
         Page<BoardEntity> boardEntityList =  boardJpaRepo.findAll(pageable);
 
         return boardEntityList.map(boardEntity -> {
-            MemberEntity author = boardEntity.getAuthor();
-            MemberResponseDto authorDTO = MemberResponseDto.builder()
+            AccountEntity author = boardEntity.getAuthor();
+            AccountResponseDto authorDTO = AccountResponseDto.builder()
                     .id(author.getId())
                     .name(author.getName())
                     .build();
@@ -111,7 +111,7 @@ public class BoardService {
                     .map(commentEntity -> CommentDTO.builder()
                             .id(commentEntity.getId())
                             .content(commentEntity.getContent())
-                            .author(MemberResponseDto.builder()
+                            .author(AccountResponseDto.builder()
                                     .id(commentEntity.getAuthor().getId())
                                     .name(commentEntity.getAuthor().getName())
                                     .build())
@@ -140,8 +140,8 @@ public class BoardService {
             return null;
         }
 
-        MemberEntity author = boardEntity.getAuthor();
-        MemberResponseDto authorDTO = MemberResponseDto.builder()
+        AccountEntity author = boardEntity.getAuthor();
+        AccountResponseDto authorDTO = AccountResponseDto.builder()
                 .id(author.getId())
                 .name(author.getName())
                 .build();
@@ -151,7 +151,7 @@ public class BoardService {
                 .map(commentEntity -> CommentDTO.builder()
                         .id(commentEntity.getId())
                         .content(commentEntity.getContent())
-                        .author(MemberResponseDto.builder()
+                        .author(AccountResponseDto.builder()
                                 .id(commentEntity.getAuthor().getId())
                                 .name(commentEntity.getAuthor().getName())
                                 .build())

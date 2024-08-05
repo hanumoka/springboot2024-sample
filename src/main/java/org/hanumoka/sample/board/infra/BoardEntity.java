@@ -4,7 +4,7 @@ package org.hanumoka.sample.board.infra;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
-import org.hanumoka.sample.member.infrastructure.jpa.MemberEntity;
+import org.hanumoka.sample.account.infrastructure.jpa.AccountEntity;
 import org.hibernate.annotations.Comment;
 
 import java.util.List;
@@ -34,7 +34,7 @@ public class BoardEntity {
     @Comment("작성자")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")
-    private MemberEntity author;
+    private AccountEntity author;
 
     @Comment("댓글")
     @OneToMany(mappedBy = "board", fetch = FetchType.LAZY)

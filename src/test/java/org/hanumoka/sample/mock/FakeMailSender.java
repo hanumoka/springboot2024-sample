@@ -1,6 +1,6 @@
 package org.hanumoka.sample.mock;
 
-import org.hanumoka.sample.member.application.port.out.MailSender;
+import org.hanumoka.sample.common.application.out.MailSender;
 
 public class FakeMailSender implements MailSender {
 

@@ -1,7 +1,7 @@
 package org.hanumoka.sample.board.domain;
 
 import lombok.Builder;
-import org.hanumoka.sample.member.domain.Member;
+import org.hanumoka.sample.account.domain.Account;
 
 public class Comment {
     private Long id;
@@ -10,10 +10,10 @@ public class Comment {
 
     private Board board;
 
-    private Member author;
+    private Account author;
 
     @Builder
-    public Comment(Long id, String content, Board board, Member author) {
+    public Comment(Long id, String content, Board board, Account author) {
         this.id = id;
         this.content = content;
         this.board = board;

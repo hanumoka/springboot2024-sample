@@ -5,7 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hanumoka.sample.member.infrastructure.jpa.MemberEntity;
+import org.hanumoka.sample.account.infrastructure.jpa.AccountEntity;
 import org.hibernate.annotations.Comment;
 
 @Slf4j
@@ -29,5 +29,5 @@ public class CommentEntity {
     @Comment("작성자")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")
-    private MemberEntity author;
+    private AccountEntity author;
 }
