@@ -1,7 +1,7 @@
 package org.hanumoka.sample.account.service;
 
 import org.hanumoka.sample.common.application.service.MailSenderService;
-import org.hanumoka.sample.mock.FakeMailSender;
+import org.hanumoka.sample.mock.fake.FakeMailSender;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 

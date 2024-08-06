@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Getter;
 import org.hanumoka.sample.common.type.AccountRoleType;
 
+import java.util.Objects;
+
 @Getter
 public class AccountRole {
     private Long id;
@@ -22,5 +24,22 @@ public class AccountRole {
                 .roleType(roleType)
                 .priority(priority)
                 .build();
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (null == o || this.getClass() != o.getClass()) return false;
+        final AccountRole that = (AccountRole) o;
+        return this.roleType == that.roleType;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(this.roleType);
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 }

@@ -2,23 +2,20 @@ package org.hanumoka.sample.account.domain;
 
 import lombok.Builder;
 import lombok.Getter;
-import org.hanumoka.sample.common.domain.BaseDomain;
 import org.hanumoka.sample.common.type.AccountRoleType;
 import org.hanumoka.sample.common.type.GenderType;
 import org.hanumoka.sample.common.domain.vo.Email;
 import org.hanumoka.sample.account.domain.type.AccountStatus;
 import org.springframework.util.StringUtils;
 
-import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
  * root aggregate
  */
 @Getter
-public class Account extends BaseDomain {
+public class Account {
     private final Long id;
     private final Email username;
     private String name;
@@ -29,7 +26,6 @@ public class Account extends BaseDomain {
 
     @Builder
     private Account(Long id, Email username, String name, Integer age, GenderType gender, AccountStatus status, Set<AccountRole> roles) {
-        super(); // BaseDomain의 생성자 호출
         validateAccountFields(username, name, status);
         this.id = id;
         this.username = username;
@@ -51,28 +47,44 @@ public class Account extends BaseDomain {
     }
 
     public void addRole(AccountRole role) {
+
+        //우선순위 중복을 검사한다.
+        if (roles.stream().anyMatch(r -> r.getPriority() == role.getPriority())) {
+            throw new IllegalArgumentException("Account must have a unique priority");
+        }
+
         roles.add(role);
-        updateLastModifiedTime();
     }
 
-    public void removeRole(AccountRole role) {
+    public void removeRole(AccountRole roleToRemove) {
         if (roles.size() <= 1) {
             throw new IllegalStateException("Account must have at least one role");
         }
-        roles.remove(role);
-        updateLastModifiedTime();
+
+        if (!roles.remove(roleToRemove)) {
+            throw new IllegalArgumentException("Role not found in this account");
+        }
+
+        List<AccountRole> sortedRoles = new ArrayList<>(roles);
+        sortedRoles.sort(Comparator.comparingInt(AccountRole::getPriority));
+
+        Set<AccountRole> newRoles = new HashSet<>();
+        for (int i = 0; i < sortedRoles.size(); i++) {
+            AccountRole currentRole = sortedRoles.get(i);
+            newRoles.add(AccountRole.createNew(currentRole.getRoleType(), i + 1));
+        }
+
+        this.roles = newRoles;
     }
 
     public void changeStatus(AccountStatus newStatus) {
         this.status = newStatus;
-        updateLastModifiedTime();
     }
 
     public void updateProfile(String newName, Integer newAge, GenderType newGender) {
         this.name = newName;
         this.age = newAge;
         this.gender = newGender;
-        updateLastModifiedTime();
     }
 
     private static void validateAccountFields(Email username, String name, AccountStatus status) {
@@ -98,5 +110,13 @@ public class Account extends BaseDomain {
         return roleTypes.stream()
                 .map(roleType -> AccountRole.createNew(roleType, 1))
                 .collect(Collectors.toSet());
+    }
+
+    public void activate() {
+        status = AccountStatus.ACTIVE;
+    }
+
+    public void delete() {
+        status = AccountStatus.DELETED;
     }
 }

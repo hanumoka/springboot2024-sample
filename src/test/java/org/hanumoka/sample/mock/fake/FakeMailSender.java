@@ -1,4 +1,4 @@
-package org.hanumoka.sample.mock;
+package org.hanumoka.sample.mock.fake;
 
 import org.hanumoka.sample.common.application.out.MailSender;
 
