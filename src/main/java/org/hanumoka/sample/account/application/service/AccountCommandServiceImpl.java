@@ -15,5 +15,4 @@ public class AccountCommandServiceImpl implements AccountCommandService {
     private final AccountRepository accountRepository;
     private final AccountCommandSpecification accountCommandSpecification;
 
-
 }

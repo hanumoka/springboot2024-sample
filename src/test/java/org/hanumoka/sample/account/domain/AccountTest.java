@@ -34,6 +34,7 @@ public class AccountTest {
 
         // Then
         assertThat(account).isNotNull();
+        assertThat(account.getId()).isNull();
         assertThat(account.getRoles()).hasSize(1);
         assertThat(account.getStatus()==AccountStatus.PENDING);
         assertThat(account.getUsername()).isEqualTo(email);

@@ -11,7 +11,7 @@ import org.hanumoka.sample.board.infra.CommentEntity;
 import org.hanumoka.sample.board.infra.CommentJpaRepo;
 import org.hanumoka.sample.account.presentation.rest.response.AccountResponseDto;
 import org.hanumoka.sample.account.infrastructure.jpa.AccountEntity;
-import org.hanumoka.sample.account.infrastructure.jpa.AccountJpaRepo;
+import org.hanumoka.sample.account.infrastructure.jpa.AccountJpaRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -25,11 +25,11 @@ import java.util.List;
 public class BoardService {
     private final BoardJpaRepo boardJpaRepo;
     private final CommentJpaRepo commentJpaRepo;
-    private final AccountJpaRepo accountJpaRepo;
+    private final AccountJpaRepository accountJpaRepository;
 
     @Transactional
     public Long createBoard(Long authorId, String title, String content) {
-        AccountEntity accountEntity = accountJpaRepo.findById(authorId)
+        AccountEntity accountEntity = accountJpaRepository.findById(authorId)
                 .orElseThrow(() -> new EntityNotFoundException("Member not found"));
 
         BoardEntity boardEntity = BoardEntity.builder()
