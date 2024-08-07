@@ -3,4 +3,6 @@
 # DDD
 
 ## TODOLIST
+- Account Service 테스트
+- Account Controller 테스트
 
