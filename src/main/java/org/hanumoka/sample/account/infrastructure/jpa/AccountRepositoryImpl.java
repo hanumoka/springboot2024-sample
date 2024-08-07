@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -17,6 +19,11 @@ public class AccountRepositoryImpl implements AccountRepository {
     @Override
     public Optional<Account> findByUsername(String username) {
         return accountJpaRepository.findByUsername(username).map(AccountEntity::toDomain);
+    }
+
+    @Override
+    public Collection<Account> findAll() {
+        return List.of();
     }
 
     @Override
@@ -34,8 +41,4 @@ public class AccountRepositoryImpl implements AccountRepository {
         return accountJpaRepository.findAll(pageable).map(AccountEntity::toDomain);
     }
 
-    @Override
-    public void delete(Account account) {
-        accountJpaRepository.delete(AccountEntity.fromDomain(account));
-    }
 }
