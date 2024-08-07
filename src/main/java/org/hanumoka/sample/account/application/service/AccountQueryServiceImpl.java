@@ -15,9 +15,4 @@ public class AccountQueryServiceImpl implements AccountQueryService {
     private final AccountRepository accountRepository;
     private final AccountQuerySpecification accountQuerySpecification;
 
-    //단건 계정 조회
-
-    //전체 계정 조회
-
-    //페이징 처리된 계정 조회 //TODO: common 도메인이 모든 도메인이서 공통적으로 사용할수 있는 페이지네이션 인터페이스를 만들자
 }

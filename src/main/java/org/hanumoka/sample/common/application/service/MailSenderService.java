@@ -1,7 +1,7 @@
 package org.hanumoka.sample.common.application.service;
 
 import lombok.RequiredArgsConstructor;
-import org.hanumoka.sample.common.application.out.MailSender;
+import org.hanumoka.sample.common.application.port.out.MailSender;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor

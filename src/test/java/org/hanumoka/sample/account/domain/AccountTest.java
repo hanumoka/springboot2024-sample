@@ -4,7 +4,8 @@ import org.hanumoka.sample.account.domain.type.AccountStatus;
 import org.hanumoka.sample.common.domain.vo.Email;
 import org.hanumoka.sample.common.type.AccountRoleType;
 import org.hanumoka.sample.common.type.GenderType;
-import org.hanumoka.sample.mock.fake.stub.AccountStub;
+import org.hanumoka.sample.mock.fake.FakeUuidHolder;
+import org.hanumoka.sample.mock.stub.AccountStub;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +30,7 @@ public class AccountTest {
         roleTypes.add(AccountRoleType.USER);
 
         // When
-        Account account = Account.createNew(email, name, age, gender, roleTypes);
+        Account account = Account.createNew(email, new FakeUuidHolder("aaaaaa-aaaaaa").random(), name, age, gender, roleTypes);
 
         // Then
         assertThat(account).isNotNull();
@@ -38,6 +39,8 @@ public class AccountTest {
         assertThat(account.getUsername()).isEqualTo(email);
         assertThat(account.getName()).isEqualTo(name);
         assertThat(account.getAge()).isEqualTo(age);
+        assertThat(account.getGender()).isEqualTo(GenderType.MALE);
+        assertThat(account.getAccountUuid()).isEqualTo("aaaaaa-aaaaaa");
     }
 
     //Account 상태 변경 테스트
@@ -130,20 +133,5 @@ public class AccountTest {
                         tuple(AccountRoleType.USER, 1),
                         tuple(AccountRoleType.GUEST, 2)
                 );
-
-//        assertThat(account).isNotNull();
-//        assertThat(account.getRoles()).hasSize(2);
-//        assertThat(account.getRoles().stream().anyMatch(role -> role.getRoleType() == AccountRoleType.USER)).isTrue();
-//        assertThat(account.getRoles().stream().anyMatch(role -> role.getRoleType() == AccountRoleType.GUEST)).isTrue();
-//
-//        account.getRoles().stream().forEach(role -> {
-//            if (role.getRoleType() == AccountRoleType.USER) {
-//                assertThat(role.getPriority()==1);
-//            } else if (role.getRoleType() == AccountRoleType.GUEST) {
-//                assertThat(role.getPriority()==2);
-//            }
-//        });
     }
-
-
 }

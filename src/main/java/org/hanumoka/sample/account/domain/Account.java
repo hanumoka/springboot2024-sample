@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 public class Account {
     private final Long id;
     private final Email username;
+    private final String accountUuid;
     private String name;
     private Integer age;
     private GenderType gender;
@@ -25,10 +26,11 @@ public class Account {
     private Set<AccountRole> roles;
 
     @Builder
-    private Account(Long id, Email username, String name, Integer age, GenderType gender, AccountStatus status, Set<AccountRole> roles) {
+    private Account(Long id, Email username, String accountUuid, String name, Integer age, GenderType gender, AccountStatus status, Set<AccountRole> roles) {
         validateAccountFields(username, name, status);
         this.id = id;
         this.username = username;
+        this.accountUuid = accountUuid;
         this.name = name;
         this.age = age;
         this.gender = gender;
@@ -36,14 +38,14 @@ public class Account {
         this.roles = new HashSet<>(roles);
     }
 
-    public static Account createNew(Email username, String name, Integer age, GenderType gender, Set<AccountRoleType> roleTypes) {
+    public static Account createNew(Email username, String accountUuid, String name, Integer age, GenderType gender, Set<AccountRoleType> roleTypes) {
         validateNewAccountFields(username, name, roleTypes);
         Set<AccountRole> roles = createRoles(roleTypes);
-        return new Account(null, username, name, age, gender, AccountStatus.PENDING, roles);
+        return new Account(null, username, accountUuid, name, age, gender, AccountStatus.PENDING, roles);
     }
 
-    public static Account reconstitute(Long id, Email username, String name, Integer age, GenderType gender, AccountStatus status, Set<AccountRole> roles) {
-        return new Account(id, username, name, age, gender, status, roles);
+    public static Account reconstitute(Long id, Email username, String accountUuid, String name, Integer age, GenderType gender, AccountStatus status, Set<AccountRole> roles) {
+        return new Account(id, username, accountUuid, name, age, gender, status, roles);
     }
 
     public void addRole(AccountRole role) {

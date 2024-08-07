@@ -1,10 +1,11 @@
-package org.hanumoka.sample.mock.fake.stub;
+package org.hanumoka.sample.mock.stub;
 
 import org.hanumoka.sample.account.domain.Account;
 import org.hanumoka.sample.account.domain.type.AccountStatus;
 import org.hanumoka.sample.common.domain.vo.Email;
 import org.hanumoka.sample.common.type.AccountRoleType;
 import org.hanumoka.sample.common.type.GenderType;
+import org.hanumoka.sample.mock.fake.FakeUuidHolder;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,7 +22,7 @@ public class AccountStub {
         roleTypes.add(AccountRoleType.USER);
 
         // When
-        Account account = Account.createNew(email, name, age, gender, roleTypes);
+        Account account = Account.createNew(email, name, new FakeUuidHolder("aaaaaa-aaaaaa").random(), age, gender, roleTypes);
 
         return account;
     }
