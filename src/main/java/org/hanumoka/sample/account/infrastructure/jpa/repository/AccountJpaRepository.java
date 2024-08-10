@@ -1,5 +1,6 @@
-package org.hanumoka.sample.account.infrastructure.jpa;
+package org.hanumoka.sample.account.infrastructure.jpa.repository;
 
+import org.hanumoka.sample.account.infrastructure.jpa.entity.AccountEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

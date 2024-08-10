@@ -1,7 +1,7 @@
 package org.hanumoka.sample.board.domain;
 
 import lombok.Builder;
-import org.hanumoka.sample.account.infrastructure.jpa.AccountEntity;
+import org.hanumoka.sample.account.infrastructure.jpa.entity.AccountEntity;
 import org.hibernate.annotations.Comment;
 
 import java.util.List;

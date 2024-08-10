@@ -5,7 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hanumoka.sample.account.infrastructure.jpa.AccountEntity;
+import org.hanumoka.sample.account.infrastructure.jpa.entity.AccountEntity;
 import org.hibernate.annotations.Comment;
 
 @Slf4j

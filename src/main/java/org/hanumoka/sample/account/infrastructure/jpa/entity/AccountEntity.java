@@ -1,4 +1,4 @@
-package org.hanumoka.sample.account.infrastructure.jpa;
+package org.hanumoka.sample.account.infrastructure.jpa.entity;
 
 
 import jakarta.persistence.*;

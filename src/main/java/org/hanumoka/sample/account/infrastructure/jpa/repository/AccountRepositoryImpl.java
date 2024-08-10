@@ -1,8 +1,9 @@
-package org.hanumoka.sample.account.infrastructure.jpa;
+package org.hanumoka.sample.account.infrastructure.jpa.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.hanumoka.sample.account.domain.Account;
 import org.hanumoka.sample.account.application.port.out.AccountRepository;
+import org.hanumoka.sample.account.infrastructure.jpa.entity.AccountEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -19,11 +20,6 @@ public class AccountRepositoryImpl implements AccountRepository {
     @Override
     public Optional<Account> findByUsername(String username) {
         return accountJpaRepository.findByUsername(username).map(AccountEntity::toDomain);
-    }
-
-    @Override
-    public Collection<Account> findAll() {
-        return List.of();
     }
 
     @Override

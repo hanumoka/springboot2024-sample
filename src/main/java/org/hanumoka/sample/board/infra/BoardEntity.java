@@ -4,7 +4,7 @@ package org.hanumoka.sample.board.infra;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
-import org.hanumoka.sample.account.infrastructure.jpa.AccountEntity;
+import org.hanumoka.sample.account.infrastructure.jpa.entity.AccountEntity;
 import org.hibernate.annotations.Comment;
 
 import java.util.List;
