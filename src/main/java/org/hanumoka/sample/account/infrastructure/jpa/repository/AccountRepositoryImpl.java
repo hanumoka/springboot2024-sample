@@ -8,8 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -23,13 +21,18 @@ public class AccountRepositoryImpl implements AccountRepository {
     }
 
     @Override
+    public Optional<Account> findByAccountUuid(String userUuid) {
+        return accountJpaRepository.findByAccountUuid(userUuid).map(AccountEntity::toDomain);
+    }
+
+    @Override
     public Account save(Account account) {
         return accountJpaRepository.save(AccountEntity.fromDomain(account)).toDomain();
     }
 
     @Override
-    public Optional<Account> findById(Long memberId) {
-        return accountJpaRepository.findById(memberId).map(AccountEntity::toDomain);
+    public Optional<Account> findById(Long id) {
+        return accountJpaRepository.findById(id).map(AccountEntity::toDomain);
     }
 
     @Override

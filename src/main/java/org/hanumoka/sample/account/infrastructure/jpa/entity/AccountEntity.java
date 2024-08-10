@@ -5,8 +5,10 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.hanumoka.sample.account.domain.Account;
+import org.hanumoka.sample.account.domain.type.AccountStatus;
 import org.hanumoka.sample.board.infra.BoardEntity;
 import org.hanumoka.sample.common.domain.vo.Email;
+import org.hanumoka.sample.common.type.GenderType;
 
 import java.util.List;
 
@@ -27,12 +29,25 @@ public class AccountEntity {
     @Column(name = "username")
     private String username;
 
-    @Setter
+    @Column(name = "account_uuid")
+    private String accountUuid;
+
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
-    private List<BoardEntity> boards;
+    @Column(name = "age")
+    private Integer age;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "gender")
+    private GenderType gender;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private AccountStatus status;
+
+//    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+//    private List<BoardEntity> boards;
 
     public static AccountEntity fromDomain(Account account) {
         return AccountEntity.builder()

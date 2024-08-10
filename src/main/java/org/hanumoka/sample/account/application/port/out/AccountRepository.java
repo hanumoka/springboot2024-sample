@@ -12,6 +12,8 @@ public interface AccountRepository {
 
     Optional<Account> findByUsername(String username);
 
+    Optional<Account> findByAccountUuid(String userUuid);
+
     Page<Account> getPage(Pageable pageable);
 
     Account save(Account account);

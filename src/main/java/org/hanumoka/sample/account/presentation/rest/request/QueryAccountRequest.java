@@ -2,11 +2,9 @@ package org.hanumoka.sample.account.presentation.rest.request;
 
 import lombok.*;
 
-import java.util.Optional;
-
 @Getter
 @Data
-public class PageAccountRequestDto {
+public class QueryAccountRequest {
     private Long id;
     private String username;
     private String accountUuid;
