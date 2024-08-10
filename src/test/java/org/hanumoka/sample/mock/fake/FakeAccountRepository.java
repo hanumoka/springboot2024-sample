@@ -30,8 +30,8 @@ public class FakeAccountRepository implements AccountRepository {
     }
 
     @Override
-    public Collection<Account> findAll() {
-        return data;
+    public Optional<Account> findByAccountUuid(String accountUuid) {
+        return data.stream().filter(item -> item.getAccountUuid().equals(accountUuid)).findAny();
     }
 
     @Override
