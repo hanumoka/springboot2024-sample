@@ -2,6 +2,7 @@ package org.hanumoka.sample.mock.fake;
 
 import org.hanumoka.sample.account.application.port.out.AccountRepository;
 import org.hanumoka.sample.account.domain.Account;
+import org.hanumoka.sample.account.presentation.rest.request.QueryAccountRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -35,7 +36,7 @@ public class FakeAccountRepository implements AccountRepository {
     }
 
     @Override
-    public Page<Account> getPage(Pageable pageable) {
+    public Page<Account> getPage(Pageable pageable, QueryAccountRequest queryAccountRequest) {
         return null;
     }
 

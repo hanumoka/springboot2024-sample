@@ -93,13 +93,12 @@ public class Account {
 
     private static Set<AccountRole> createRoles(Set<AccountRoleType> roleTypes) {
         return roleTypes.stream()
-                .map(roleType -> AccountRole.createNew(roleType, 1))
+                .map(roleType -> AccountRole.createNew(roleType))
                 .collect(Collectors.toSet());
     }
 
     public void addRole(AccountRole role) {
         roles.add(role);
-        adjustRolePriorities();
     }
 
     public void removeRole(AccountRole roleToRemove) {
@@ -110,16 +109,6 @@ public class Account {
         if (!roles.remove(roleToRemove)) {
             throw new IllegalArgumentException("Role not found in this account");
         }
-        adjustRolePriorities();
     }
 
-    private void adjustRolePriorities() {
-        // priority 재조정 로직
-        List<AccountRole> sortedRoles = new ArrayList<>(roles);
-        sortedRoles.sort(Comparator.comparingInt(AccountRole::getPriority));
-
-        for (int i = 0; i < sortedRoles.size(); i++) {
-            sortedRoles.get(i).setPriority(i + 1);
-        }
-    }
 }

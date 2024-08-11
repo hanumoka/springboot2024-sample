@@ -1,6 +1,7 @@
 package org.hanumoka.sample.account.application.port.out;
 
 import org.hanumoka.sample.account.domain.Account;
+import org.hanumoka.sample.account.presentation.rest.request.QueryAccountRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -14,7 +15,7 @@ public interface AccountRepository {
 
     Optional<Account> findByAccountUuid(String userUuid);
 
-    Page<Account> getPage(Pageable pageable);
+    Page<Account> getPage(Pageable pageable,QueryAccountRequest queryAccountRequest);
 
     Account save(Account account);
 

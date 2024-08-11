@@ -25,6 +25,7 @@ public class AccountQueryController {
         AccountResponseDto accountResponseDto = AccountResponseDto.from(account);
         return ResponseEntity.ok(accountResponseDto);
     }
+
     @GetMapping("/get-page")
     public ResponseEntity<Page<AccountResponseDto>> getPage(
             @PageableDefault(size = 10, sort = "id") Pageable pageable,

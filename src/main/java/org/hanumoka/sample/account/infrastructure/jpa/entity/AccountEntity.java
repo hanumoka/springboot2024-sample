@@ -46,9 +46,6 @@ public class AccountEntity {
     @Column(name = "status")
     private AccountStatus status;
 
-//    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
-//    private List<BoardEntity> boards;
-
     public static AccountEntity fromDomain(Account account) {
         return AccountEntity.builder()
                 .id(account.getId())
@@ -62,6 +59,9 @@ public class AccountEntity {
                 .id(id)
                 .username(Email.from(username))
                 .name(name)
+                .age(age)
+                .status(status)
+                .gender(gender)
                 .build();
     }
 }

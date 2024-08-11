@@ -35,7 +35,7 @@ public class AccountQueryServiceImpl implements AccountQueryService {
 
     @Override
     public Page<Account> getPage(Pageable pageable, QueryAccountRequest queryAccountRequest) {
-        return accountRepository.getPage(pageable);
+        return accountRepository.getPage(pageable, queryAccountRequest);
     }
 
 

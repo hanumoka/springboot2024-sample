@@ -85,7 +85,7 @@ public class AccountTest {
     void addRole() {
         // Given
         Account account = AccountStub.createAccount();
-        AccountRole role = AccountRole.createNew(AccountRoleType.ADMIN, 2);
+        AccountRole role = AccountRole.createNew(AccountRoleType.ADMIN);
 
         // When
         account.addRole(role);
@@ -101,7 +101,7 @@ public class AccountTest {
     void removeRole() {
         // Given
         Account account = AccountStub.createAccount();
-        AccountRole role2 = AccountRole.createNew(AccountRoleType.ADMIN, 2);
+        AccountRole role2 = AccountRole.createNew(AccountRoleType.ADMIN);
         account.addRole(role2);
 
         // When
@@ -118,8 +118,8 @@ public class AccountTest {
     void removeRoleAndReorder() {
         // Given
         Account account = AccountStub.createAccount();
-        AccountRole role2 = AccountRole.createNew(AccountRoleType.ADMIN, 2);
-        AccountRole role3 = AccountRole.createNew(AccountRoleType.GUEST, 3);
+        AccountRole role2 = AccountRole.createNew(AccountRoleType.ADMIN);
+        AccountRole role3 = AccountRole.createNew(AccountRoleType.GUEST);
         account.addRole(role2);
         account.addRole(role3);
 
@@ -128,12 +128,8 @@ public class AccountTest {
 
         // Then
         assertThat(account.getRoles()).hasSize(2);
-
         assertThat(account.getRoles())
-                .extracting(AccountRole::getRoleType, AccountRole::getPriority)
-                .containsExactlyInAnyOrder(
-                        tuple(AccountRoleType.USER, 1),
-                        tuple(AccountRoleType.GUEST, 2)
-                );
+                .extracting("roleType")
+                .containsExactlyInAnyOrder(AccountRoleType.USER, AccountRoleType.GUEST);
     }
 }

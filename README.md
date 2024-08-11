@@ -2,9 +2,6 @@
 
 # DDD TODOLIST
 
-### Account Role 소형 테스트
-- [ ] AccountRole 도메인 테스트
-
 ### Account 소형 테스트
 - [ ] Account presentation 테스트
 - [ ] Account application 테스트

@@ -4,8 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.hanumoka.sample.account.domain.Account;
 import org.hanumoka.sample.account.application.port.out.AccountRepository;
 import org.hanumoka.sample.account.infrastructure.jpa.entity.AccountEntity;
+import org.hanumoka.sample.account.presentation.rest.request.QueryAccountRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -36,8 +38,9 @@ public class AccountRepositoryImpl implements AccountRepository {
     }
 
     @Override
-    public Page<Account> getPage(Pageable pageable) {
-        return accountJpaRepository.findAll(pageable).map(AccountEntity::toDomain);
+    public Page<Account> getPage(Pageable pageable, QueryAccountRequest queryAccountRequest) {
+        Specification<AccountEntity> spec = AccountSpecification.withDynamicQuery(queryAccountRequest);
+        return accountJpaRepository.findAll(spec, pageable).map(AccountEntity::toDomain);
     }
 
 }

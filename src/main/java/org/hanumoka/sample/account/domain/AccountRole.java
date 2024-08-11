@@ -10,19 +10,16 @@ import java.util.Objects;
 public class AccountRole {
     private Long id;
     private AccountRoleType roleType;
-    private int priority;
 
     @Builder
-    public AccountRole(Long id, AccountRoleType roleType, int priority) {
+    public AccountRole(Long id, AccountRoleType roleType) {
         this.id = id;
         this.roleType = roleType;
-        this.priority = priority;
     }
 
-    public static AccountRole createNew(AccountRoleType roleType, int priority) {
+    public static AccountRole createNew(AccountRoleType roleType) {
         return AccountRole.builder()
                 .roleType(roleType)
-                .priority(priority)
                 .build();
     }
 
@@ -37,9 +34,5 @@ public class AccountRole {
     @Override
     public int hashCode() {
         return Objects.hashCode(this.roleType);
-    }
-
-    public void setPriority(int priority) {
-        this.priority = priority;
     }
 }

@@ -1,4 +1,4 @@
-package org.hanumoka.sample.account.presentation.response;
+package org.hanumoka.sample.account.presentation.rest.response;
 
 import org.hanumoka.sample.account.domain.Account;
 import org.hanumoka.sample.account.presentation.rest.response.AccountResponseDto;
