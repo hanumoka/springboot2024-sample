@@ -41,12 +41,12 @@ public class Account {
 
     public static Account createNew(
             Email username
-            , String accountUuid
             , String name
             , Integer age
             , GenderType gender
             , Set<AccountRoleType> roleTypes) {
 //        validateNewAccountFields(username, name, roleTypes);
+        String accountUuid = UUID.randomUUID().toString();
         Set<AccountRole> roles = createRoles(roleTypes);
         return new Account(null, username, accountUuid, name, age, gender, AccountStatus.PENDING, roles);
     }

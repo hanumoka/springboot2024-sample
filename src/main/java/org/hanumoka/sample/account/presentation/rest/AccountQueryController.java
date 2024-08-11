@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/api/members")
+@RequestMapping("/api/account/query")
 @RestController
 public class AccountQueryController {
     private final AccountQueryService accountQueryService;
@@ -36,7 +36,7 @@ public class AccountQueryController {
         return ResponseEntity.ok(responseDtoPage);
     }
 
-    @GetMapping("/query")
+    @GetMapping("/search")
     public ResponseEntity<AccountResponseDto> getAccountByQueryAccountRequest(@ModelAttribute QueryAccountRequest queryAccountRequest) {
 
         Account account = null;
@@ -46,7 +46,7 @@ public class AccountQueryController {
             account = accountQueryService.getAccountByUsername(queryAccountRequest.getUsername());
         }else if(queryAccountRequest.getAccountUuid() != null) {
             account = accountQueryService.getAccountByAccountUuid(queryAccountRequest.getAccountUuid());
-        }//else if
+        }
 
         AccountResponseDto accountResponseDto = AccountResponseDto.from(account);
         return ResponseEntity.ok(accountResponseDto);

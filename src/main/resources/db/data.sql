@@ -104,3 +104,8 @@ INSERT INTO comment (content, board_id, author_id)
 VALUES ('Second comment on second board',
         (SELECT id FROM board WHERE title = 'Second Board'),
         (SELECT id FROM account WHERE username = 'john_doe'));
+
+
+-- AUTO_INCREMENT 값 조정
+ALTER TABLE account ALTER COLUMN id RESTART WITH 10000;
+ALTER TABLE account_role ALTER COLUMN id RESTART WITH 10000;

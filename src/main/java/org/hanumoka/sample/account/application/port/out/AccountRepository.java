@@ -19,4 +19,5 @@ public interface AccountRepository {
 
     Account save(Account account);
 
+    Long createAccount(Account domain);
 }

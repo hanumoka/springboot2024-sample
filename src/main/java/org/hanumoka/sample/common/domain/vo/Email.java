@@ -1,9 +1,12 @@
 package org.hanumoka.sample.common.domain.vo;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Email {
 
     private String email;

@@ -11,31 +11,30 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/api/account")
+@RequestMapping("/api/account/command")
 @RestController
 public class AccountCommandController {
 
     private final AccountQueryServiceImpl memberQueryServiceImpl;
     private final AccountCommandServiceImpl accountCommandServiceImpl;
     
-    //멤버 생성
-    @PostMapping
-    public ResponseEntity<Long> createMember(@RequestBody CreateAccountRequest request) {
-//        AccountCreate accountCreate = AccountCreate.builder()
-//                .username(request.getUsername())
-//                .name(request.getName())
-//                .build();
-//        Long memberId = accountCommandServiceImpl.createMember(accountCreate);
-//        return ResponseEntity.ok(memberId);
-        return null;
+    //1. account 생성
+    @PostMapping("/create")
+    public ResponseEntity<Long> createAccount(@RequestBody CreateAccountRequest createAccountRequest) {
+        Long accountId = accountCommandServiceImpl.createAccount(createAccountRequest.toDomain());
+        return ResponseEntity.ok(accountId);
     }
 
-    //멤버 삭제
-    @PostMapping("/{memberId}/delete")
-    public ResponseEntity<Long> deleteMember(@PathVariable Long memberId) {
-//        long deletedMemberId = accountCommandServiceImpl.deleteMember(memberId);
-//        return ResponseEntity.ok(deletedMemberId);
-        return null;
+    //2. account 수정
+    @PostMapping("/update")
+    public ResponseEntity<Long> updateAccount(@RequestBody CreateAccountRequest createAccountRequest) {
+        return ResponseEntity.ok(1l);
     }
-    
+
+    //3. account 삭제
+    @PostMapping("/delete")
+    public ResponseEntity<Long> deleteAccount(@RequestBody CreateAccountRequest createAccountRequest) {
+        return ResponseEntity.ok(1l);
+    }
+
 }

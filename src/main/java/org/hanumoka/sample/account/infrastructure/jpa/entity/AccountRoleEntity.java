@@ -28,6 +28,13 @@ public class AccountRoleEntity {
     @Column(name = "role")
     private AccountRoleType roleType;
 
+    public static AccountRoleEntity createNew(AccountEntity accountEntity, AccountRole role) {
+        return AccountRoleEntity.builder()
+                .accountEntity(accountEntity)
+                .roleType(role.getRoleType())
+                .build();
+    }
+
     public AccountRole toDomain() {
         return AccountRole.builder()
                 .id(id)
