@@ -2,6 +2,12 @@
 
 # DDD TODOLIST
 
+
+### Account API 만들기
+- [x] Account 생성 API
+- [ ] Account 수정 
+- [ ] Account 삭제
+
 ### Account 소형 테스트
 - [ ] Account presentation 테스트
 - [ ] Account application 테스트

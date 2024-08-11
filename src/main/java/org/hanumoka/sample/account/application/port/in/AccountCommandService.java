@@ -7,6 +7,10 @@ public interface AccountCommandService {
     //1. Account 생성
     Long createAccount(Account domain);
 
+    Long updateAccount(Account domain);
+
+    Long deleteAccount(Account domain);
+
     //2. Account 수정
 
     //3. Account 상태 변경

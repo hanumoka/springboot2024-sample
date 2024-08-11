@@ -1,18 +1,17 @@
 package org.hanumoka.sample.account.presentation.rest.request;
 
-import lombok.*;
+import lombok.Data;
+import lombok.Getter;
 import org.hanumoka.sample.account.domain.Account;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Builder
-@AllArgsConstructor
+@Getter
 @Data
-public class UpdateAccountRequest {
-    private String name;
+public class DeleteAccountRequest {
+    private Long id;
 
     public Account toDomain() {
         return Account.builder()
-                .name(name)
+                .id(id)
                 .build();
     }
 }
