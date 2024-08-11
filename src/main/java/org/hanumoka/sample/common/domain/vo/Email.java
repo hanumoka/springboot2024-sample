@@ -25,4 +25,9 @@ public class Email {
             throw new IllegalArgumentException("Invalid email format");
         }
     }
+
+    @Override
+    public String toString() {
+        return email;
+    }
 }

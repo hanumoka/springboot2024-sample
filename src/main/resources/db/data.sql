@@ -37,6 +37,41 @@ VALUES (12,'john_doe11@test.com', 'aaaaaaa-bbbbbbb11' ,'John Doe11', 21, 'MALE',
 
 
 -- Account Role 생성
+INSERT INTO account_role (id, account_id, role)
+VALUES (1, 1, 'USER');
+
+INSERT INTO account_role (id, account_id, role)
+VALUES (2, 2, 'USER');
+
+INSERT INTO account_role (id, account_id, role)
+VALUES (3, 3, 'USER');
+
+INSERT INTO account_role (id, account_id, role)
+VALUES (4, 4, 'USER');
+
+INSERT INTO account_role (id, account_id, role)
+VALUES (5, 5, 'USER');
+
+INSERT INTO account_role (id, account_id, role)
+VALUES (6, 6, 'USER');
+
+INSERT INTO account_role (id, account_id, role)
+VALUES (7, 7, 'USER');
+
+INSERT INTO account_role (id, account_id, role)
+VALUES (8, 8, 'USER');
+
+INSERT INTO account_role (id, account_id, role)
+VALUES (9, 9, 'USER');
+
+INSERT INTO account_role (id, account_id, role)
+VALUES (10, 10, 'USER');
+
+INSERT INTO account_role (id, account_id, role)
+VALUES (11, 11, 'USER');
+
+INSERT INTO account_role (id, account_id, role)
+VALUES (12, 12, 'USER');
 
 
 -- Board 생성 (2개)

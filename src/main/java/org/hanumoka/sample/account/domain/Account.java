@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
  */
 @Getter
 public class Account {
+
     private final Long id;
     private final Email username;
     private final String accountUuid;
@@ -27,7 +28,7 @@ public class Account {
 
     @Builder
     private Account(Long id, Email username, String accountUuid, String name, Integer age, GenderType gender, AccountStatus status, Set<AccountRole> roles) {
-        validateAccountFields(username, name, status);
+        validateAccountFields(username, name, status, roles);
         this.id = id;
         this.username = username;
         this.accountUuid = accountUuid;
@@ -45,7 +46,7 @@ public class Account {
             , Integer age
             , GenderType gender
             , Set<AccountRoleType> roleTypes) {
-        validateNewAccountFields(username, name, roleTypes);
+//        validateNewAccountFields(username, name, roleTypes);
         Set<AccountRole> roles = createRoles(roleTypes);
         return new Account(null, username, accountUuid, name, age, gender, AccountStatus.PENDING, roles);
     }
@@ -64,7 +65,7 @@ public class Account {
         this.gender = newGender;
     }
 
-    private static void validateAccountFields(Email username, String name, AccountStatus status) {
+    private static void validateAccountFields(Email username, String name, AccountStatus status, Set<AccountRole> roles) {
         if (username == null) {
             throw new IllegalArgumentException("Account must have a username");
         }
@@ -74,14 +75,18 @@ public class Account {
         if (status == null) {
             throw new IllegalArgumentException("Account must have a status");
         }
-    }
 
-    private static void validateNewAccountFields(Email username, String name, Set<AccountRoleType> roleTypes) {
-        validateAccountFields(username, name, AccountStatus.PENDING);
-        if (roleTypes == null || roleTypes.isEmpty()) {
+        if (roles == null || roles.isEmpty()) {
             throw new IllegalArgumentException("Account must have at least one role");
         }
     }
+
+//    private static void validateNewAccountFields(Email username, String name, Set<AccountRoleType> roleTypes) {
+//        validateAccountFields(username, name, AccountStatus.PENDING);
+//        if (roleTypes == null || roleTypes.isEmpty()) {
+//            throw new IllegalArgumentException("Account must have at least one role");
+//        }
+//    }
 
     public void activate() {
         status = AccountStatus.ACTIVE;
