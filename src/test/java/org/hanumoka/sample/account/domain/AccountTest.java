@@ -128,6 +128,7 @@ public class AccountTest {
 
         // Then
         assertThat(account.getRoles()).hasSize(2);
+
         assertThat(account.getRoles())
                 .extracting(AccountRole::getRoleType, AccountRole::getPriority)
                 .containsExactlyInAnyOrder(
