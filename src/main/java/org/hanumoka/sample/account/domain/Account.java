@@ -29,6 +29,11 @@ public class Account {
     @Builder
     private Account(Long id, Email username, String accountUuid, String name, Integer age, GenderType gender, AccountStatus status, Set<AccountRole> roles) {
 //        validateAccountFields(username, name, status, roles);
+
+        if(roles == null) {
+            roles = new HashSet<>();
+        }
+
         this.id = id;
         this.username = username;
         this.accountUuid = accountUuid;

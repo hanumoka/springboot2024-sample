@@ -64,6 +64,7 @@ public class AccountEntity {
         return Account.builder()
                 .id(id)
                 .username(Email.from(username))
+                .accountUuid(accountUuid)
                 .name(name)
                 .age(age)
                 .status(status)

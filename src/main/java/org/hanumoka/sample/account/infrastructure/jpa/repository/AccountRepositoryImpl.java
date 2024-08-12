@@ -78,7 +78,18 @@ public class AccountRepositoryImpl implements AccountRepository {
 
     @Override
     public Long deleteAccount(Account domain) {
-        return 0L;
+
+        AccountEntity accountEntity = accountJpaRepository.findById(domain.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Account not found"));
+
+        Account savedAccount = accountEntity.toDomain();
+        savedAccount.delete();
+
+        AccountEntity.fromDomain(savedAccount);
+
+        accountJpaRepository.save(AccountEntity.fromDomain(savedAccount));
+
+        return accountEntity.getId();
     }
 
     @Override
