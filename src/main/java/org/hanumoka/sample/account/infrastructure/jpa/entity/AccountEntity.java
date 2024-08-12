@@ -5,13 +5,10 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.hanumoka.sample.account.domain.Account;
-import org.hanumoka.sample.account.domain.AccountRole;
 import org.hanumoka.sample.account.domain.type.AccountStatus;
-import org.hanumoka.sample.board.infra.BoardEntity;
 import org.hanumoka.sample.common.domain.vo.Email;
 import org.hanumoka.sample.common.type.GenderType;
 
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 

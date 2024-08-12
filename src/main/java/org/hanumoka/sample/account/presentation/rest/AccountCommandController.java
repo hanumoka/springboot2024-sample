@@ -28,14 +28,14 @@ public class AccountCommandController {
     @PostMapping("/update")
     public ResponseEntity<Long> updateAccount(@RequestBody UpdateAccountRequest updateAccountRequest) {
         Long accountId = accountCommandService.updateAccount(updateAccountRequest.toDomain());
-        return ResponseEntity.ok(1l);
+        return ResponseEntity.ok(accountId);
     }
 
     //3. account 삭제
     @PostMapping("/delete")
     public ResponseEntity<Long> deleteAccount(@RequestBody DeleteAccountRequest deleteAccountRequest) {
         Long accountId = accountCommandService.deleteAccount(deleteAccountRequest.toDomain());
-        return ResponseEntity.ok(1l);
+        return ResponseEntity.ok(accountId);
     }
 
 }

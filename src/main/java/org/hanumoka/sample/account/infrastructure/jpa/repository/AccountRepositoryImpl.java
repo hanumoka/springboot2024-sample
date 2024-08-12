@@ -7,14 +7,14 @@ import org.hanumoka.sample.account.domain.AccountRole;
 import org.hanumoka.sample.account.infrastructure.jpa.entity.AccountEntity;
 import org.hanumoka.sample.account.infrastructure.jpa.entity.AccountRoleEntity;
 import org.hanumoka.sample.account.presentation.rest.request.QueryAccountRequest;
+import org.hanumoka.sample.common.type.AccountRoleType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Repository
@@ -51,7 +51,29 @@ public class AccountRepositoryImpl implements AccountRepository {
 
     @Override
     public Long updateAccount(Account domain) {
-        return 0L;
+        AccountEntity savedAccountEntity = accountJpaRepository.findById(domain.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Account not found"));
+
+        Account savedAccount = savedAccountEntity.toDomain();
+        savedAccount.update(domain);
+
+        AccountEntity updatedAccountEntity = accountJpaRepository.save(AccountEntity.fromDomain(savedAccount));
+        updateAccountRoles(updatedAccountEntity, domain.getRoles().stream().map(AccountRole::getRoleType).collect(Collectors.toSet()));
+
+        return updatedAccountEntity.getId();
+    }
+
+    private void updateAccountRoles(AccountEntity accountEntity, Set<AccountRoleType> newRoles) {
+        Set<AccountRoleEntity> currentRoles = new HashSet<>(accountRoleJpaRepository.findByAccountEntity(accountEntity));
+        Set<AccountRoleEntity> updatedRoles = newRoles.stream()
+                .map(role -> AccountRoleEntity.createNew(accountEntity, AccountRole.createNew(role)))
+                .collect(Collectors.toSet());
+
+        Set<AccountRoleEntity> rolesToDelete = getRolesToDelete(currentRoles, updatedRoles);
+        Set<AccountRoleEntity> rolesToAdd = getRolesToAdd(currentRoles, updatedRoles);
+
+        accountRoleJpaRepository.deleteAll(rolesToDelete);
+        accountRoleJpaRepository.saveAll(rolesToAdd);
     }
 
     @Override
@@ -68,6 +90,21 @@ public class AccountRepositoryImpl implements AccountRepository {
     public Page<Account> getPage(Pageable pageable, QueryAccountRequest queryAccountRequest) {
         Specification<AccountEntity> spec = AccountSpecification.withDynamicQuery(queryAccountRequest);
         return accountJpaRepository.findAll(spec, pageable).map(AccountEntity::toDomain);
+    }
+
+
+    private Set<AccountRoleEntity> getRolesToDelete(Set<AccountRoleEntity> currentRoles, Set<AccountRoleEntity> updatedRoles) {
+        return currentRoles.stream()
+                .filter(role -> updatedRoles.stream()
+                        .noneMatch(updatedRole -> updatedRole.getRoleType().equals(role.getRoleType())))
+                .collect(Collectors.toSet());
+    }
+
+    private Set<AccountRoleEntity> getRolesToAdd(Set<AccountRoleEntity> currentRoles, Set<AccountRoleEntity> updatedRoles) {
+        return updatedRoles.stream()
+                .filter(role -> currentRoles.stream()
+                        .noneMatch(currentRole -> currentRole.getRoleType().equals(role.getRoleType())))
+                .collect(Collectors.toSet());
     }
 
 }

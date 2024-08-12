@@ -28,7 +28,7 @@ public class Account {
 
     @Builder
     private Account(Long id, Email username, String accountUuid, String name, Integer age, GenderType gender, AccountStatus status, Set<AccountRole> roles) {
-        validateAccountFields(username, name, status, roles);
+//        validateAccountFields(username, name, status, roles);
         this.id = id;
         this.username = username;
         this.accountUuid = accountUuid;
@@ -44,9 +44,8 @@ public class Account {
             , String name
             , Integer age
             , GenderType gender
-//            , Set<AccountRoleType> roleTypes
     ) {
-//        validateNewAccountFields(username, name, roleTypes);
+        validateCreateAccountFields(username, name, AccountStatus.PENDING);
         Set<AccountRoleType> roleTypes = Set.of(AccountRoleType.USER);
         String accountUuid = UUID.randomUUID().toString();
         Set<AccountRole> roles = createRoles(roleTypes);
@@ -67,7 +66,7 @@ public class Account {
         this.gender = newGender;
     }
 
-    private static void validateAccountFields(Email username, String name, AccountStatus status, Set<AccountRole> roles) {
+    private static void validateCreateAccountFields(Email username, String name, AccountStatus status) {
         if (username == null) {
             throw new IllegalArgumentException("Account must have a username");
         }
@@ -77,18 +76,7 @@ public class Account {
         if (status == null) {
             throw new IllegalArgumentException("Account must have a status");
         }
-
-        if (roles == null || roles.isEmpty()) {
-            throw new IllegalArgumentException("Account must have at least one role");
-        }
     }
-
-//    private static void validateNewAccountFields(Email username, String name, Set<AccountRoleType> roleTypes) {
-//        validateAccountFields(username, name, AccountStatus.PENDING);
-//        if (roleTypes == null || roleTypes.isEmpty()) {
-//            throw new IllegalArgumentException("Account must have at least one role");
-//        }
-//    }
 
     public void activate() {
         status = AccountStatus.ACTIVE;
@@ -100,7 +88,7 @@ public class Account {
 
     private static Set<AccountRole> createRoles(Set<AccountRoleType> roleTypes) {
         return roleTypes.stream()
-                .map(roleType -> AccountRole.createNew(roleType))
+                .map(AccountRole::createNew)
                 .collect(Collectors.toSet());
     }
 
@@ -118,4 +106,9 @@ public class Account {
         }
     }
 
+    public void update(Account domain) {
+        this.name = domain.getName();
+        this.age = domain.getAge();
+        this.gender = domain.getGender();
+        this.status = domain.getStatus();}
 }
