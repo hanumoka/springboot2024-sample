@@ -22,7 +22,6 @@ public class CreateAccountRequest {
     private GenderType gender;
 
     public Account toDomain() {
-        Set<AccountRoleType> roleTypes = Set.of(AccountRoleType.USER);
-        return Account.createNew(Email.from(username), name, age, gender, roleTypes);
+        return Account.createNew(Email.from(username), name, age, gender);
     }
 }

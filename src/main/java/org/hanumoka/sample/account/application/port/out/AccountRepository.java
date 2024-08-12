@@ -20,4 +20,8 @@ public interface AccountRepository {
     Account save(Account account);
 
     Long createAccount(Account domain);
+
+    Long updateAccount(Account domain);
+
+    Long deleteAccount(Account domain);
 }

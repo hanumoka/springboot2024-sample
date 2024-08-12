@@ -50,6 +50,16 @@ public class AccountRepositoryImpl implements AccountRepository {
     }
 
     @Override
+    public Long updateAccount(Account domain) {
+        return 0L;
+    }
+
+    @Override
+    public Long deleteAccount(Account domain) {
+        return 0L;
+    }
+
+    @Override
     public Optional<Account> findById(Long id) {
         return accountJpaRepository.findById(id).map(AccountEntity::toDomain);
     }

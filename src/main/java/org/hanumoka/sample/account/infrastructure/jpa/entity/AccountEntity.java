@@ -56,6 +56,9 @@ public class AccountEntity {
         return AccountEntity.builder()
                 .id(account.getId())
                 .username(account.getUsername().toString())
+                .accountUuid(account.getAccountUuid())
+                .gender(account.getGender())
+                .status(account.getStatus())
                 .name(account.getName())
                 .build();
     }

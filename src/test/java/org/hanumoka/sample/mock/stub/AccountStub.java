@@ -22,7 +22,7 @@ public class AccountStub {
         roleTypes.add(AccountRoleType.USER);
 
         // When
-        Account account = Account.createNew(email, name, new FakeUuidHolder("aaaaaa-aaaaaa").random(), age, gender, roleTypes);
+        Account account = Account.createNew(email, name, age, gender);
 
         return account;
     }

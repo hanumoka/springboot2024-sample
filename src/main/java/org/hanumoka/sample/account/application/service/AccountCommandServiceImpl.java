@@ -22,4 +22,14 @@ public class AccountCommandServiceImpl implements AccountCommandService {
     public Long createAccount(Account domain) {
         return accountRepository.createAccount(domain);
     }
+
+    @Override
+    public Long updateAccount(Account domain) {
+        return accountRepository.updateAccount(domain);
+    }
+
+    @Override
+    public Long deleteAccount(Account domain) {
+        return accountRepository.deleteAccount(domain);
+    }
 }

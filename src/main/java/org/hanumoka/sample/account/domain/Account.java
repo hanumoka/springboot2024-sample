@@ -44,8 +44,10 @@ public class Account {
             , String name
             , Integer age
             , GenderType gender
-            , Set<AccountRoleType> roleTypes) {
+//            , Set<AccountRoleType> roleTypes
+    ) {
 //        validateNewAccountFields(username, name, roleTypes);
+        Set<AccountRoleType> roleTypes = Set.of(AccountRoleType.USER);
         String accountUuid = UUID.randomUUID().toString();
         Set<AccountRole> roles = createRoles(roleTypes);
         return new Account(null, username, accountUuid, name, age, gender, AccountStatus.PENDING, roles);

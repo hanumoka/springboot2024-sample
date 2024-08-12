@@ -30,7 +30,7 @@ public class AccountTest {
         roleTypes.add(AccountRoleType.USER);
 
         // When
-        Account account = Account.createNew(email, new FakeUuidHolder("aaaaaa-aaaaaa").random(), name, age, gender, roleTypes);
+        Account account = Account.createNew(email, name, age, gender);
 
         // Then
         assertThat(account).isNotNull();
