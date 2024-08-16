@@ -1,6 +1,15 @@
 package org.hanumoka.sample.test;
 
+/**
+ * 클래스 설명란
+ *
+ * @fileName : TestController
+ * @author : KYB
+ * @since : 24. 8. 16.
+ */
+
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -9,20 +18,20 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.MultipartBodyBuilder;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
-/**
- * 클래스 설명란
- *
- * @author : KYB
- * @fileName : TestController
- * @since : 24. 8. 16.
- */
 @RestController
 public class TestController {
 
@@ -32,19 +41,16 @@ public class TestController {
         this.resourceLoader = resourceLoader;
     }
 
-    @Operation(summary = "Get mixed content with keys", description = "Returns a multipart mixed response containing JSON data and files")
+    @Operation(summary = "Post mixed content with keys", description = "Accepts JSON data and a list of files, returns a multipart mixed response")
     @ApiResponse(responseCode = "200", description = "Successful response",
             content = @Content(mediaType = "multipart/mixed",
                     schema = @Schema(implementation = MixedContentResponse.class)))
-    @GetMapping("/mixed-content-with-keys")
-    public ResponseEntity<?> getMixedContentWithKeys() {
-        // JSON 데이터 생성
-        MyDto dto = new MyDto("example data");
-
-        // 파일 정보와 키값을 담은 Map 생성
-        Map<String, FileInfo> fileInfoMap = new LinkedHashMap<>();
-        fileInfoMap.put("A1", new FileInfo("file/file1.pdf", "file1.pdf"));
-        fileInfoMap.put("B1", new FileInfo("file/file2.jpg", "file2.png"));
+    @PostMapping(value = "/mixed-content-with-keys", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> postMixedContentWithKeys(
+            @Parameter(description = "JSON data", required = true)
+            @RequestPart("json") MyDto dto,
+            @Parameter(description = "List of files", required = false)
+            @RequestPart(value = "files", required = false) List<MultipartFile> files) {
 
         // Multipart 응답 구성
         MultipartBodyBuilder builder = new MultipartBodyBuilder();
@@ -52,33 +58,41 @@ public class TestController {
         // JSON 파트 추가
         builder.part("json", dto).contentType(MediaType.APPLICATION_JSON);
 
+        if(files == null || files.isEmpty()) {
+            return ResponseEntity.ok()
+                    .contentType(MediaType.MULTIPART_MIXED)
+                    .body(builder.build());
+        }
+
+        Resource resource = resourceLoader.getResource("classpath:file/");
+        String uploadDir;
+        try {
+            uploadDir = resource.getFile().getAbsolutePath();
+        } catch (IOException e) {
+            return ResponseEntity.internalServerError().body("Failed to get upload directory");
+        }
+
         // 파일 파트와 메타데이터 추가
-        for (Map.Entry<String, FileInfo> entry : fileInfoMap.entrySet()) {
-            String key = entry.getKey();
-            FileInfo fileInfo = entry.getValue();
-
+        for (int i = 0; i < files.size() && i < dto.getFileKeys().size(); i++) {
+            String key = dto.getFileKeys().get(i);
+            MultipartFile file = files.get(i);
             try {
-                // 리소스 로드
-                Resource fileResource = resourceLoader.getResource("classpath:file/" + fileInfo.getFilename());
+                String filename = key + getFileExtension(file.getOriginalFilename());
+                Path filePath = Paths.get(uploadDir, filename);
 
-                if (!fileResource.exists()) {
-                    throw new IOException("File not found: " + fileInfo.getFilename());
-                }
+                System.out.println(filePath);
 
-                // 파일 메타데이터 JSON 생성
-                Map<String, Object> metadata = new LinkedHashMap<>();
-                metadata.put("key", key);
-                metadata.put("filename", fileInfo.getFilename());
+                // 기존 파일이 있다면 삭제
+                Files.deleteIfExists(filePath);
 
-                // 메타데이터 파트 추가
-                builder.part(key + "-metadata", metadata).contentType(MediaType.APPLICATION_JSON);
+                // 새 파일 저장
+                file.transferTo(filePath.toFile());
 
-                // 파일 파트 추가
-                builder.part(key + "-file", fileResource).filename(fileInfo.getFilename());
+                addFilePart(builder, key, filePath.toFile());
             } catch (IOException e) {
-                // 로그 기록
-                System.err.println("Error loading file: " + e.getMessage());
-                // 에러 처리 로직 추가 (예: 해당 파일 스킵 또는 에러 응답)
+                // 에러 로깅
+                System.err.println("Error saving file: " + e.getMessage());
+                // 여기서는 에러를 무시하고 계속 진행합니다.
             }
         }
 
@@ -86,6 +100,61 @@ public class TestController {
         return ResponseEntity.ok()
                 .contentType(MediaType.MULTIPART_MIXED)
                 .body(builder.build());
+    }
+
+
+    private void addFilePart(MultipartBodyBuilder builder, String key, File file) {
+        // 파일 메타데이터 JSON 생성
+        Map<String, Object> metadata = new LinkedHashMap<>();
+        metadata.put("key", key);
+        metadata.put("filename", file.getName());
+
+        // 메타데이터 파트 추가
+        builder.part(key + "-metadata", metadata).contentType(MediaType.APPLICATION_JSON);
+
+        // 파일 파트 추가
+        builder.part(key + "-file", file).filename(file.getName());
+    }
+
+
+    private String getFileExtension(String filename) {
+        return filename.substring(filename.lastIndexOf("."));
+    }
+}
+
+@Schema(description = "Data transfer object for mixed content request")
+class MyDto {
+    @Schema(description = "Example data field")
+    private String data;
+
+    @Schema(description = "List of file keys corresponding to uploaded files")
+    private List<String> fileKeys;
+
+    // 기본 생성자
+    public MyDto() {
+    }
+
+    // 모든 필드를 포함한 생성자
+    public MyDto(String data, List<String> fileKeys) {
+        this.data = data;
+        this.fileKeys = fileKeys;
+    }
+
+    // Getters and setters
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public List<String> getFileKeys() {
+        return fileKeys;
+    }
+
+    public void setFileKeys(List<String> fileKeys) {
+        this.fileKeys = fileKeys;
     }
 }
 
@@ -100,7 +169,18 @@ class MixedContentResponse {
     @Schema(description = "File contents")
     private Map<String, Resource> fileContents;
 
-    // getters and setters
+    // 기본 생성자
+    public MixedContentResponse() {
+    }
+
+    // 모든 필드를 포함한 생성자
+    public MixedContentResponse(MyDto json, Map<String, FileMetadata> fileMetadata, Map<String, Resource> fileContents) {
+        this.json = json;
+        this.fileMetadata = fileMetadata;
+        this.fileContents = fileContents;
+    }
+
+    // Getters and setters
     public MyDto getJson() {
         return json;
     }
@@ -134,7 +214,17 @@ class FileMetadata {
     @Schema(description = "File name")
     private String filename;
 
-    // getters and setters
+    // 기본 생성자
+    public FileMetadata() {
+    }
+
+    // 모든 필드를 포함한 생성자
+    public FileMetadata(String key, String filename) {
+        this.key = key;
+        this.filename = filename;
+    }
+
+    // Getters and setters
     public String getKey() {
         return key;
     }
@@ -152,36 +242,3 @@ class FileMetadata {
     }
 }
 
-class MyDto {
-    private String data;
-
-    public MyDto(String data) {
-        this.data = data;
-    }
-
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
-}
-
-class FileInfo {
-    private String path;
-    private String filename;
-
-    public FileInfo(String path, String filename) {
-        this.path = path;
-        this.filename = filename;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public String getFilename() {
-        return filename;
-    }
-}
