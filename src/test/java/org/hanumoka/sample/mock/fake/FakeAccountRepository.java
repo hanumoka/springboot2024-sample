@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,6 +61,21 @@ public class FakeAccountRepository implements AccountRepository {
             data.add(account);
             return account;
         }
+    }
+
+    @Override
+    public Long createAccount(Account domain) {
+        return 0L;
+    }
+
+    @Override
+    public Long updateAccount(Account domain) {
+        return 0L;
+    }
+
+    @Override
+    public Long deleteAccount(Account domain) {
+        return 0L;
     }
 
 }

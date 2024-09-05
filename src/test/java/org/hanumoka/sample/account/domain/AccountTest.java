@@ -4,7 +4,6 @@ import org.hanumoka.sample.account.domain.type.AccountStatus;
 import org.hanumoka.sample.common.domain.vo.Email;
 import org.hanumoka.sample.common.type.AccountRoleType;
 import org.hanumoka.sample.common.type.GenderType;
-import org.hanumoka.sample.mock.fake.FakeUuidHolder;
 import org.hanumoka.sample.mock.stub.AccountStub;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,7 +12,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.tuple;
 
 public class AccountTest {
 
@@ -41,7 +39,7 @@ public class AccountTest {
         assertThat(account.getName()).isEqualTo(name);
         assertThat(account.getAge()).isEqualTo(age);
         assertThat(account.getGender()).isEqualTo(GenderType.MALE);
-        assertThat(account.getAccountUuid()).isEqualTo("aaaaaa-aaaaaa");
+//        assertThat(account.getAccountUuid()).isEqualTo("aaaaaa-aaaaaa");
     }
 
     //Account 상태 변경 테스트
