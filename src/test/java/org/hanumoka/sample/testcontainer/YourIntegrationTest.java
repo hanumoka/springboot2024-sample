@@ -3,7 +3,6 @@ package org.hanumoka.sample.testcontainer;
 import lombok.extern.slf4j.Slf4j;
 import org.hanumoka.sample.account.infrastructure.jpa.entity.AccountEntity;
 import org.hanumoka.sample.account.infrastructure.jpa.repository.AccountJpaRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
