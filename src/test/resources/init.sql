@@ -14,9 +14,6 @@ CREATE TABLE account
     CONSTRAINT uk_account_uuid UNIQUE (account_uuid)
 );
 
--- Account 생성
-INSERT INTO account (id, username, account_uuid, name, age, gender, status)
-VALUES (1, 'john_doe@test.com', 'aaaaaaa-bbbbbbb', 'John Doe', 10, 'MALE', 'PENDING');
 
 
 
