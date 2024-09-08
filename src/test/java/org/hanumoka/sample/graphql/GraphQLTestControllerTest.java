@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.graphql.GraphQlTest;
 import org.springframework.graphql.test.tester.GraphQlTester;
 
-@GraphQlTest(BookController.class)
-public class BookControllerTest {
+@GraphQlTest(GraphQLTestController.class)
+public class GraphQLTestControllerTest {
 
     @Autowired
     private GraphQlTester graphQlTester;

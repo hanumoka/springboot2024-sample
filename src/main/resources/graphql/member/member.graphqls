@@ -1,6 +1,0 @@
-type Member {
-    id: ID
-    name: String
-    email: String
-    boards: [Board]
-}

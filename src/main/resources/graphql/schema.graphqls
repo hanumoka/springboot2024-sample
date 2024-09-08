@@ -3,24 +3,28 @@
 #scalar Date
 
 type Query {
-    # Import queries from other files
-    books: [Book]
-    bookById(id: Int) : Book
-#    boards: [Board]
+    dummy: String
 }
 
-type Author {
-    id: ID
-    name: String
-    #    books: [Book]
-}
-
-type Book {
-    id: ID
-    name: String
-    pageCount: Int
-    author: Author
-}
-
+#type Query {
+#    # Import queries from other files
+#    books: [Book]
+#    bookById(id: Int) : Book
+##    boards: [Board]
+#}
+#
+#type Author {
+#    id: ID
+#    name: String
+#    #    books: [Book]
+#}
+#
+#type Book {
+#    id: ID
+#    name: String
+#    pageCount: Int
+#    author: Author
+#}
+#
 
 

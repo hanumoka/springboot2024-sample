@@ -1,5 +1,0 @@
-type Board {
-    id: ID
-    title: String
-    content: String
-}
