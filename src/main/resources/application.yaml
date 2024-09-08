@@ -36,6 +36,8 @@ spring:
 
 # 기본접속 localhost:8080/graphiql
   graphql:
+    websocket:
+      path: /graphql
     graphiql:
       enabled: true
     schema:

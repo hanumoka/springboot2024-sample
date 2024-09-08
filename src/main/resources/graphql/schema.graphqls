@@ -1,3 +1,12 @@
+type Subscription {
+    newBoardPost: BoardEntity
+}
+
+type Mutation {
+    createBoardPost(authorId: Int!, title: String!, content: String!): BoardEntity!
+}
+
+
 type Query {
     getBoards: [BoardEntity!]!
     getBoardsConnection(first: Int, after: String): BoardConnection!

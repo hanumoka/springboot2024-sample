@@ -8,14 +8,13 @@ import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
 
-import java.util.Arrays;
 import java.util.List;
 
 
 @Slf4j
 @RequiredArgsConstructor
 @Controller
-public class BoardGQController {
+public class BoardQuery {
 
     private final BoardResolver boardResolver;
 
