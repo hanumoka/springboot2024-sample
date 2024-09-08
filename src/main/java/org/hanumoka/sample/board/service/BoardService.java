@@ -103,6 +103,7 @@ public class BoardService {
             AccountEntity author = boardEntity.getAuthor();
             AccountResponseDto authorDTO = AccountResponseDto.builder()
                     .id(author.getId())
+                    .username(author.getUsername())
                     .name(author.getName())
                     .build();
 
@@ -114,6 +115,7 @@ public class BoardService {
                             .author(AccountResponseDto.builder()
                                     .id(commentEntity.getAuthor().getId())
                                     .name(commentEntity.getAuthor().getName())
+                                    .username(commentEntity.getAuthor().getUsername())
                                     .build())
                             .build())
                     .toList();

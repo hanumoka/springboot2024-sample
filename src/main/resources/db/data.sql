@@ -75,35 +75,29 @@ VALUES (12, 12, 'USER');
 
 
 -- Board 생성 (2개)
-INSERT INTO board (title, content, author_id)
-VALUES ('First Board', 'This is the content of the first board.',
-        (SELECT id FROM account WHERE username = 'john_doe'));
+INSERT INTO board (id, title, content, author_id)
+VALUES (1,'First Board', 'This is the content of the first board.',1);
 
-INSERT INTO board (title, content, author_id)
-VALUES ('Second Board', 'This is the content of the second board.',
-        (SELECT id FROM account WHERE username = 'john_doe'));
+INSERT INTO board (id, title, content, author_id)
+VALUES (2, 'Second Board', 'This is the content of the second board.', 1);
 
 -- First Board에 대한 Comment 생성 (2개)
-INSERT INTO comment (content, board_id, author_id)
-VALUES ('First comment on first board',
-        (SELECT id FROM board WHERE title = 'First Board'),
-        (SELECT id FROM account WHERE username = 'john_doe'));
+INSERT INTO comment (id, content, board_id, author_id)
+VALUES (1, 'First comment on first board',1,2);
 
-INSERT INTO comment (content, board_id, author_id)
-VALUES ('Second comment on first board',
-        (SELECT id FROM board WHERE title = 'First Board'),
-        (SELECT id FROM account WHERE username = 'john_doe'));
+INSERT INTO comment (id, content, board_id, author_id)
+VALUES (2, 'Second comment on first board',1, 3);
 
 -- Second Board에 대한 Comment 생성 (2개)
-INSERT INTO comment (content, board_id, author_id)
-VALUES ('First comment on second board',
-        (SELECT id FROM board WHERE title = 'Second Board'),
-        (SELECT id FROM account WHERE username = 'john_doe'));
-
-INSERT INTO comment (content, board_id, author_id)
-VALUES ('Second comment on second board',
-        (SELECT id FROM board WHERE title = 'Second Board'),
-        (SELECT id FROM account WHERE username = 'john_doe'));
+-- INSERT INTO comment (content, board_id, author_id)
+-- VALUES ('First comment on second board',
+--         (SELECT id FROM board WHERE title = 'Second Board'),
+--         (SELECT id FROM account WHERE username = 'john_doe'));
+--
+-- INSERT INTO comment (content, board_id, author_id)
+-- VALUES ('Second comment on second board',
+--         (SELECT id FROM board WHERE title = 'Second Board'),
+--         (SELECT id FROM account WHERE username = 'john_doe'));
 
 
 -- AUTO_INCREMENT 값 조정

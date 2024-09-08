@@ -1,9 +1,11 @@
 package org.hanumoka.sample.graphql;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class GraphQLTestController {
+
 
 //    @QueryMapping
 //    public List<Book> books() {
