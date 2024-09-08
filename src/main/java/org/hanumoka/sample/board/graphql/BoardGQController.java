@@ -3,8 +3,6 @@ package org.hanumoka.sample.board.graphql;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hanumoka.sample.board.graphql.dto.BoardConnection;
-import org.hanumoka.sample.board.graphql.dto.BoardEdge;
-import org.hanumoka.sample.board.graphql.dto.PageInfo;
 import org.hanumoka.sample.board.infra.BoardEntity;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
@@ -36,12 +34,6 @@ public class BoardGQController {
     public BoardConnection getBoardsConnection(@Argument Integer first, @Argument String after) {
         log.info("Fetching boards connection with first: {}, after: {}", first, after);
         return boardResolver.getBoardsConnection(first, after);
-//        return BoardConnection.builder().pageInfo(PageInfo.builder()
-//                        .hasNextPage(true)
-//                        .endCursor("test")
-//                        .build())
-//                .edge(Arrays.asList(BoardEdge.builder().cursor("test").build()))
-//                .build();
     }
 
 }

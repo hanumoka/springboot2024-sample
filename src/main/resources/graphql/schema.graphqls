@@ -7,6 +7,13 @@ type BoardEntity {
     id: ID!
     title: String!
     content: String!
+    author: AccountEntity
+}
+
+type AccountEntity {
+    id: ID!
+    username: String!
+    name: String!
 }
 
 type BoardConnection {
@@ -16,7 +23,7 @@ type BoardConnection {
 
 
 type BoardEdge {
-#    node: BoardEntity!
+    node: BoardEntity!
     cursor: String!
 }
 
