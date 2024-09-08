@@ -4,7 +4,15 @@
 
 type Query {
     dummy: String
+    boards: [Board]
 }
+
+type Board {
+    id: ID
+    title: String
+    content: String
+}
+
 
 #type Query {
 #    # Import queries from other files
