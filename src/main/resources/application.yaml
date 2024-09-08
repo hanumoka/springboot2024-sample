@@ -47,3 +47,4 @@ spring:
 logging:
   level:
     org.springframework.jdbc.datasource.init: DEBUG
+    org.springframework.graphql: DEBUG

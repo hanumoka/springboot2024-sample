@@ -1,38 +1,28 @@
-## Import all other schema files
-#scalar JSON
-#scalar Date
-
 type Query {
-    dummy: String
-    boards: [Board]
+    getBoards: [BoardEntity!]!
+    getBoardsConnection(first: Int, after: String): BoardConnection!
 }
 
-type Board {
-    id: ID
-    title: String
-    content: String
+type BoardEntity {
+    id: ID!
+    title: String!
+    content: String!
+}
+
+type BoardConnection {
+    edge: [BoardEdge!]!
+    pageInfo: PageInfo!
 }
 
 
-#type Query {
-#    # Import queries from other files
-#    books: [Book]
-#    bookById(id: Int) : Book
-##    boards: [Board]
-#}
-#
-#type Author {
-#    id: ID
-#    name: String
-#    #    books: [Book]
-#}
-#
-#type Book {
-#    id: ID
-#    name: String
-#    pageCount: Int
-#    author: Author
-#}
-#
+type BoardEdge {
+#    node: BoardEntity!
+    cursor: String!
+}
+
+type PageInfo {
+    hasNextPage: Boolean!
+    endCursor: String
+}
 
 
