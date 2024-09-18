@@ -3,7 +3,7 @@ select 1;
 -- Create account table
 CREATE TABLE account
 (
-    id BIGSERIAL PRIMARY KEY,
+    id           BIGSERIAL PRIMARY KEY,
     username     VARCHAR(255) NOT NULL,
     account_uuid VARCHAR(36)  NOT NULL,
     name         VARCHAR(255),
@@ -15,5 +15,11 @@ CREATE TABLE account
 );
 
 
+CREATE TABLE stock
+(
+    id         BIGSERIAL PRIMARY KEY,
+    product_id BIGINT NOT NULL,
+    quantity   BIGINT NOT NULL
+);
 
 
