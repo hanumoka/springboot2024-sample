@@ -48,5 +48,15 @@ spring:
 
 logging:
   level:
-    org.springframework.jdbc.datasource.init: DEBUG
-    org.springframework.graphql: DEBUG
+    org:
+      springframework:
+        graphql: DEBUG
+      jdbc:
+        datasource:
+          init: DEBUG
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
