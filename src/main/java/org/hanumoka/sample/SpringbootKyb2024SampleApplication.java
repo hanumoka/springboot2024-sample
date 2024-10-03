@@ -7,7 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SpringbootKyb2024SampleApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringbootKyb2024SampleApplication.class, args);
+        SpringApplication
+                .run(SpringbootKyb2024SampleApplication.class, args);
     }
 
 }
