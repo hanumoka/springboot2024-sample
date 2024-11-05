@@ -1,3 +1,4 @@
+//jooq설정 1: 버전 설정, 버전은 nu.studer.jooq와 org.springframework.boot:spring-boot-starter-jooq 에 종속된다.
 buildscript {
     ext {
         jooqVersion = '3.19.10'
@@ -71,7 +72,7 @@ dependencies {
 }
 
 jooq {
-    version.set("3.19.10")
+    version.set("${jooqVersion}")
 
     configurations {
         kybexamDB {
