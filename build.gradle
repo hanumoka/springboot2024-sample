@@ -57,7 +57,9 @@ dependencies {
 
     // JOOQ 의존성 추가
     implementation 'org.springframework.boot:spring-boot-starter-jooq'
-    jooqGenerator 'org.postgresql:postgresql'
+
+//    jooqGenerator 'org.postgresql:postgresql'
+    jooqGenerator project(':JOOQ-custom')
     jooqGenerator "org.jooq:jooq:${jooqVersion}"
     jooqGenerator "org.jooq:jooq-meta:${jooqVersion}"
 
@@ -90,6 +92,7 @@ jooq {
 
                     database {
                         name = "org.jooq.meta.postgres.PostgresDatabase"
+                        unsignedTypes = false
                         inputSchema = "public"  // 기본 스키마를 public으로 변경
                         includes = ".*"  // 모든 테이블 포함
                         excludes = "flyway_schema_history|spatial_ref_sys"  // 시스템 테이블 제외
@@ -112,6 +115,9 @@ jooq {
                         // 생성 위치를 build 디렉토리로 변경
                         directory = "build/generated-src/jooq/main"
                     }
+
+                    // 사용자 정의 코드 생성기 추가
+                    strategy.name = "jooq.custom.generator.JPrefixGeneratorStrategy"
                 }
             }
         }

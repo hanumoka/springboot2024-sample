@@ -1,0 +1,31 @@
+
+plugins {
+    id 'java'
+}
+
+group = 'org.example'
+version = '0.0.1-SNAPSHOT'
+
+// Java 버전 명시
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+// 컴파일 버전 명시
+tasks.withType(JavaCompile) {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.jooq:jooq-codegen:${jooqVersion}"
+//    //db
+    runtimeOnly 'org.postgresql:postgresql'
+}

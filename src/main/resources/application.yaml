@@ -72,3 +72,5 @@ logging:
           descriptor:
             sql:
               BasicBinder: TRACE
+
+    org.jooq.tools.LoggerListener: DEBUG

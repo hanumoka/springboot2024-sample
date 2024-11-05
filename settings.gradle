@@ -1,1 +1,3 @@
 rootProject.name = 'springboot_kyb_2024_sample'
+include 'JOOQ-custom'
+

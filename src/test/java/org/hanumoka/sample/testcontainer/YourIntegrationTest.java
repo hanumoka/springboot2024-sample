@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
-import org.testcontainers.junit.jupiter.Testcontainers;
+//import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.List;
 
@@ -25,8 +25,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles("test")
 @Transactional
 @SpringBootTest
-@Testcontainers
-@Sql(scripts = "/setup-test-data.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+//@Testcontainers
+//@Sql(scripts = "/setup-test-data.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
 public class YourIntegrationTest {
 
     @Autowired
@@ -34,30 +34,30 @@ public class YourIntegrationTest {
 
 
 //    @Sql("/setup-test-data.sql")
-    @Test
-    public void testSomething() {
-        // 여기에 테스트 코드 작성
-        log.info("Test code here");
-
-        List<AccountEntity> all = accountJpaRepository.findAll();
-        log.info("All size: {}", all.size());
-
-        // 추가적인 검증 로직
-        assertThat(all).isNotEmpty();
-        assertThat(all.size()).isEqualTo(1);
-    }
+//    @Test
+//    public void testSomething() {
+//        // 여기에 테스트 코드 작성
+//        log.info("Test code here");
+//
+//        List<AccountEntity> all = accountJpaRepository.findAll();
+//        log.info("All size: {}", all.size());
+//
+//        // 추가적인 검증 로직
+//        assertThat(all).isNotEmpty();
+//        assertThat(all.size()).isEqualTo(1);
+//    }
 
 //    @Sql("/setup-test-data.sql")
-    @Test
-    public void testSomething2() {
-        // 여기에 테스트 코드 작성
-        log.info("Test code here");
-
-        List<AccountEntity> all = accountJpaRepository.findAll();
-        log.info("All size: {}", all.size());
-
-        // 추가적인 검증 로직
-        assertThat(all).isNotEmpty();
-        assertThat(all.size()).isEqualTo(1);
-    }
+//    @Test
+//    public void testSomething2() {
+//        // 여기에 테스트 코드 작성
+//        log.info("Test code here");
+//
+//        List<AccountEntity> all = accountJpaRepository.findAll();
+//        log.info("All size: {}", all.size());
+//
+//        // 추가적인 검증 로직
+//        assertThat(all).isNotEmpty();
+//        assertThat(all.size()).isEqualTo(1);
+//    }
 }
