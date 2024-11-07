@@ -2,6 +2,7 @@
 buildscript {
     ext {
         jooqVersion = '3.19.10'
+        postgresqlVersion = '42.2.23'
     }
 }
 
@@ -53,7 +54,7 @@ dependencies {
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
 
     //db
-    runtimeOnly 'org.postgresql:postgresql'
+    runtimeOnly "org.postgresql:postgresql:${postgresqlVersion}"
 
     // JOOQ 의존성 추가
     implementation 'org.springframework.boot:spring-boot-starter-jooq'

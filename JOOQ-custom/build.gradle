@@ -26,5 +26,5 @@ repositories {
 
 dependencies {
     implementation "org.jooq:jooq-codegen:${jooqVersion}"
-    runtimeOnly 'org.postgresql:postgresql'
+    runtimeOnly "org.postgresql:postgresql:${postgresqlVersion}"
 }
