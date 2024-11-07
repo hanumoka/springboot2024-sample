@@ -132,6 +132,15 @@ sourceSets {
     }
 }
 
+// JOOQ 코드 생성이 컴파일 전에 실행되도록 설정
+tasks.named('compileJava').configure {
+    it.dependsOn(tasks.named('generateKybexamDBJooq'))
+}
+
+tasks.named('compileTestJava').configure {
+    it.dependsOn(tasks.named('generateKybexamDBJooq'))
+}
+
 tasks.named('test') {
     useJUnitPlatform()
 }
