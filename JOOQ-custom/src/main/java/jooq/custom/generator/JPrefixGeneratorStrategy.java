@@ -10,6 +10,8 @@ public class JPrefixGeneratorStrategy extends DefaultGeneratorStrategy {
 
         if(mode == Mode.DEFAULT){
             return "J" + super.getJavaClassName(definition, mode);
+        }else if (mode == Mode.POJO){
+            return super.getJavaClassName(definition, mode) + "Pojo";
         }
 
         return super.getJavaClassName(definition, mode);
