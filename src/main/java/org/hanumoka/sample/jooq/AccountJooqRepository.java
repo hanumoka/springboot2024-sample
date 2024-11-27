@@ -2,6 +2,7 @@ package org.hanumoka.sample.jooq;
 
 import lombok.RequiredArgsConstructor;
 import org.hanumoka.sample.infrastructure.jooq.generated.tables.JAccount;
+import org.hanumoka.sample.infrastructure.jooq.generated.tables.daos.AccountDao;
 import org.hanumoka.sample.infrastructure.jooq.generated.tables.pojos.AccountPojo;
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Repository;
 @RequiredArgsConstructor
 @Repository
 public class AccountJooqRepository {
+
+    private final AccountDao accountDao;
 
     private final DSLContext dslContext;
     private final JAccount jAccount = JAccount.ACCOUNT;
